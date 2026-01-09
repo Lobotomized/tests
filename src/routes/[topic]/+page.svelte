@@ -7,8 +7,10 @@
 	import { topics } from '../topics.js';
 
 	let { data } = $props();
-	const questions: QuestionPublic[] = data.questions;
-	const topic: string = data.topic || '';
+	// svelte-ignore state_referenced_locally
+		const questions: QuestionPublic[] = data.questions;
+	// svelte-ignore state_referenced_locally
+		const topic: string = data.topic || '';
 	let incorrectSources = $state<(VideoSource | TextSource)[]>([]);
 	let selections = $state<number[]>(Array(questions.length).fill(-1));
 	let submitted = $state(false);
@@ -128,7 +130,7 @@
 						<p>Great job! No mistakes to study.</p>
 					{:else}
 						{#each incorrectSources as src}
-							{#if src.url}
+							{#if 'url' in src && src.url}
 								<div class="study-item">
 									<h3>{src.title}</h3>
 									<div class="video">
@@ -137,11 +139,12 @@
 											title={src.title}
 											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 											allowfullscreen	
-										/>
+										></iframe>
 									</div>
 								</div>
 							{/if}
-							{#if src.text}
+
+							{#if 'text' in src && src.text}
 								<div class="study-item">
 									<h3>{src.title}</h3>
 									<p>{src.text}</p>
@@ -162,7 +165,7 @@
 					</button>
 				{/if}
 			{:else}
-					{#if isInSummary}
+					{#if  currentIndex > questions.length-1}
 						<button onclick={checkMistakes} disabled={currentIndex === 0}>Go back to check your mistakes</button>
 					{:else}
 						<button onclick={prevQuestion} disabled={currentIndex === 0}>Previous</button>
