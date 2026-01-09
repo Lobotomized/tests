@@ -1,15 +1,19 @@
 <script lang="ts">
 	import QuestionCard from '$lib/components/QuestionCard.svelte';
 	import type { QuestionPublic, GradeResult } from '$lib/quiz/types';
+	import type { TextSource, VideoSource } from '$lib/server/quiz/sources.js';
 
 	import { onMount } from 'svelte';
+	import { topics } from '../topics.js';
 
 	let { data } = $props();
 	const questions: QuestionPublic[] = data.questions;
 	const topic: string = data.topic || '';
+	let incorrectSources = $state<(VideoSource | TextSource)[]>([]);
 	let selections = $state<number[]>(Array(questions.length).fill(-1));
 	let submitted = $state(false);
 	let result = $state<GradeResult | null>(null);
+
 	let loading = $state(true);
 	let error = $state<string | null>(null);
 	let currentIndex = $state(0);
@@ -17,6 +21,22 @@
 	onMount(() => {
 		loading = false;
 	});
+	function toYouTubeEmbed(url: string) {
+		try {
+			const u = new URL(url);
+			if (u.hostname.includes('youtube.com')) {
+				const id = u.searchParams.get('v') || '';
+				return id ? `https://www.youtube.com/embed/${id}` : url;
+			}
+			if (u.hostname.includes('youtu.be')) {
+				const id = u.pathname.replace('/', '');
+				return id ? `https://www.youtube.com/embed/${id}` : url;
+			}
+			return url;
+		} catch {
+			return url;
+		}
+	}
 	function select(optionIndex: number) {
 		if (submitted) return;
 		selections[currentIndex] = optionIndex;
@@ -35,21 +55,15 @@
 		submitted = true;
 		if (res.ok) {
 			result = await res.json();
+			incorrectSources = result?.sources || [];
 		} else {
 			error = 'Failed to grade quiz';
 		}
 	}
 
-	function resetQuiz() {
-		selections = Array(questions.length).fill(-1);
-		submitted = false;
-		result = null;
-		error = null;
-		currentIndex = 0;
-	}
 
 	function nextQuestion() {
-		if (currentIndex < questions.length - 1) {
+		if (currentIndex < questions.length) {
 			if (submitted || selections[currentIndex] !== -1) {
 				currentIndex += 1;
 			}
@@ -74,8 +88,13 @@
 	</main>
 {:else}
 	<main class="fullscreen container">
-		<h1>Coding Quiz</h1>
-		<p class="subtitle">Question {currentIndex + 1} of {questions.length}</p>
+		{#if currentIndex < questions.length}
+			<h1>{topics[topic]}</h1>
+			<p class="subtitle">Question {currentIndex + 1} of {questions.length}</p>
+		{:else}
+			<h1>What to study</h1>
+			<p class="subtitle">Resources based on your mistakes</p>
+		{/if}
 		{#if submitted}
 			<p class={'status ' + (result && result.correct[currentIndex] ? 'ok' : 'bad')}>
 				{result && result.correct[currentIndex] ? 'Correct' : 'Incorrect'}
@@ -84,18 +103,50 @@
 		{#if error}
 			<p class="error">{error}</p>
 		{/if}
-		<div class="question">
-			<QuestionCard
-				q={questions[currentIndex]}
-				selectedIndex={selections[currentIndex]}
-				disabled={submitted}
-				{submitted}
-				isCorrect={result ? result.correct[currentIndex] : undefined}
-				correctIndex={result ? result.correctIndices[currentIndex] : undefined}
-				onSelect={(i) => select(i)}
-				fullscreen={true}
-			/>
-		</div>
+		{#if currentIndex < questions.length}
+			<div class="question">
+				<QuestionCard
+					q={questions[currentIndex]}
+					selectedIndex={selections[currentIndex]}
+					disabled={submitted}
+					{submitted}
+					isCorrect={result ? result.correct[currentIndex] : undefined}
+					correctIndex={result ? result.correctIndices[currentIndex] : undefined}
+					onSelect={(i) => select(i)}
+					fullscreen={true}
+				/>
+			</div>
+		{:else}
+			<section class="study card">
+				{#if submitted && result}
+					{#if incorrectSources.length === 0}
+						<p>Great job! No mistakes to study.</p>
+					{:else}
+						{#each incorrectSources as src}
+							{#if src.url}
+								<div class="study-item">
+									<h3>{src.title}</h3>
+									<div class="video">
+										<iframe
+											src={toYouTubeEmbed(src.url)}
+											title={src.title}
+											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+											allowfullscreen	
+										/>
+									</div>
+								</div>
+							{/if}
+							{#if src.text}
+								<div class="study-item">
+									<h3>{src.title}</h3>
+									<p>{src.text}</p>
+								</div>
+							{/if}
+						{/each}
+					{/if}
+				{/if}
+			</section>
+		{/if}
 		<div class="actions">
 			{#if !submitted}
 				{#if currentIndex < questions.length - 1}
@@ -105,13 +156,12 @@
 						Submit Quiz
 					</button>
 				{/if}
-				<button onclick={resetQuiz} class="secondary">Reset</button>
 			{:else}
 				<button onclick={prevQuestion} disabled={currentIndex === 0}>Previous</button>
-				<button onclick={nextQuestion} disabled={currentIndex === questions.length - 1}>Next</button
-				>
-				<button onclick={resetQuiz} class="secondary">Restart</button>
-			{/if}
+					{#if currentIndex < questions.length }
+						<button onclick={nextQuestion} disabled={currentIndex === questions.length}>{currentIndex === questions.length - 1 ? "Check your mistakes" : "Next"}</button>
+					{/if}
+				{/if}
 		</div>
 		{#if submitted && result}
 			<section class="summary card">
@@ -213,6 +263,27 @@
 		border-radius: 10px;
 		padding: 1rem 1rem;
 		margin-bottom: 1rem;
+	}
+	.study h3 {
+		margin: 0.25rem 0 0.5rem 0;
+	}
+	.study-item {
+		margin-bottom: 1rem;
+	}
+	.video {
+		position: relative;
+		padding-bottom: 56.25%;
+		height: 0;
+		overflow: hidden;
+		border-radius: 8px;
+	}
+	.video iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
 	}
 	.actions {
 		display: flex;

@@ -1,4 +1,5 @@
 import type { QuestionFull } from '$lib/quiz/types';
+import { videoSources } from '$lib/server/quiz/sources';
 
 //QUESTION
 
@@ -48,7 +49,8 @@ console.log('Loop end');`,
 			'Loop start, Timeout 0, Timeout 1, Loop end, Promise 0, Promise 1',
 			'Loop start, Loop end, Timeout 0, Timeout 1, Promise 0, Promise 1'
 		],
-		correctIndex: 1
+		correctIndex: 1,
+		videoSource: videoSources.asyncVideo
 	},
 	{
 		id: 2,
@@ -79,7 +81,8 @@ console.log('End');`,
 			'Start, End, Promise 1, Promise 2, Promise in Timeout, Regular Timeout, Timeout in Promise',
 			'Start, End, Regular Timeout, Promise in Timeout, Promise 1, Promise 2, Timeout in Promise'
 		],
-		correctIndex: 0
+		correctIndex: 0,
+		videoSource: videoSources.asyncVideo
 	},
 
 	{
@@ -105,7 +108,8 @@ console.log('End');`,
 			'Start, End, Timeout 1, Timeout 2, Promise 1, Promise 2, Promise 3',
 			'Start, End, Promise 1, Promise 3, Timeout 2, Timeout 1, Promise 2'
 		],
-		correctIndex: 0
+		correctIndex: 0,
+		videoSource: videoSources.asyncVideo
 	},
 	{
 		id: 4,
@@ -125,7 +129,8 @@ console.log("End");`,
 			'Start, End, Timeout 1, Promise 1, Timeout 2, Promise 2',
 			'Start, Promise 1, End, Promise 2, Timeout 1, Timeout 2'
 		],
-		correctIndex: 1
+		correctIndex: 1,
+		videoSource: videoSources.asyncVideo
 	}
 ];
 

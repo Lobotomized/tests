@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { topics } from './topics';
 </script>
 
 <div class="links-container">
@@ -7,9 +8,9 @@
 	<ul class="links-list">
 		<li class="link-item">
 			<a href={resolve('/jsAsync')} data-sveltekit-preload-data="tap" class="link-card">
-				<span class="link-icon">⚡</span>
-				<span class="link-text">JavaScript Async</span>
-			</a>
+				<span class="link-icon">⏱️</span>
+				<span class="link-text">{topics.jsAsync}</span>
+			</a>	
 		</li>
 		<li class="link-item">
 			<a href={resolve('/jsInheritance')} data-sveltekit-preload-data="tap" class="link-card">
@@ -21,6 +22,7 @@
 </div>
 
 <style>
+
 	.links-container {
 		max-width: 600px;
 		margin: 2rem auto;

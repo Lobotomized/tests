@@ -50,7 +50,7 @@
 	{#if q.code}
 
 	<pre class="language-javascript">
-<code class="language-javascript" bind:this={codeElement}></code>
+	<code class="language-javascript" bind:this={codeElement}></code>
 	</pre>
 	{/if}
 	<ol class="options">
@@ -61,6 +61,7 @@
 						(submitted && oi === correctIndex ? 'correctOpt' : '') +
 						(submitted && selectedIndex === oi && isCorrect === false ? ' wrongSelected' : '')}
 				>
+				{#key selectedIndex}
 					<input
 						type="radio"
 						name={'q-' + q.id}
@@ -68,6 +69,7 @@
 						onchange={() => choose(oi)}
 						{disabled}
 					/>
+				{/key}
 					<span>{opt}</span>
 				</label>
 			</li>
@@ -101,7 +103,6 @@
 	}
 	.code {
 		background: #0b1021;
-		color: #e5e7eb;
 		border-radius: 8px;
 		padding: 0.75rem;
 		overflow: auto;

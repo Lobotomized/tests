@@ -1,0 +1,3 @@
+export const topics: Record<string, string> = {
+    jsAsync: 'Asynchronicity in Javascript',
+}

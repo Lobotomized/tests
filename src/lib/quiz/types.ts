@@ -1,3 +1,5 @@
+import type { TextSource, VideoSource } from '$lib/server/quiz/sources';
+
 export type QuestionPublic = {
 	id: number;
 	prompt: string;
@@ -14,6 +16,7 @@ export type GradeResult = {
 	total: number;
 	correct: boolean[];
 	correctIndices: number[];
+	sources: (VideoSource | TextSource)[];
 };
 
 export type QuestionFull = {
@@ -23,4 +26,6 @@ export type QuestionFull = {
 	topic: string;
 	options: string[];
 	correctIndex: number;
+	videoSource?: VideoSource;
+	textSource?: TextSource;
 };
