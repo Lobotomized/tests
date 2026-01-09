@@ -17,7 +17,8 @@
 	let loading = $state(true);
 	let error = $state<string | null>(null);
 	let currentIndex = $state(0);
-
+	const isInSummary = $derived(currentIndex >= questions.length - 1);
+		
 	onMount(() => {
 		loading = false;
 	});
@@ -51,6 +52,7 @@
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ selections, topic })
 		});
+		nextQuestion();
 		loading = false;
 		submitted = true;
 		if (res.ok) {
@@ -75,6 +77,9 @@
 			currentIndex -= 1;
 		}
 	}
+	function checkMistakes(){
+		currentIndex = 0;
+	}
 </script>
 
 {#if loading || !questions || questions.length === 0}
@@ -95,7 +100,7 @@
 			<h1>What to study</h1>
 			<p class="subtitle">Resources based on your mistakes</p>
 		{/if}
-		{#if submitted}
+		{#if submitted  && currentIndex < questions.length}
 			<p class={'status ' + (result && result.correct[currentIndex] ? 'ok' : 'bad')}>
 				{result && result.correct[currentIndex] ? 'Correct' : 'Incorrect'}
 			</p>
@@ -118,7 +123,7 @@
 			</div>
 		{:else}
 			<section class="study card">
-				{#if submitted && result}
+				{#if result}
 					{#if incorrectSources.length === 0}
 						<p>Great job! No mistakes to study.</p>
 					{:else}
@@ -149,7 +154,7 @@
 		{/if}
 		<div class="actions">
 			{#if !submitted}
-				{#if currentIndex < questions.length - 1}
+				{#if !isInSummary}
 					<button onclick={nextQuestion} disabled={selections[currentIndex] === -1}>Next</button>
 				{:else}
 					<button onclick={submitQuiz} disabled={selections.some((s) => s === -1)}>
@@ -157,13 +162,18 @@
 					</button>
 				{/if}
 			{:else}
-				<button onclick={prevQuestion} disabled={currentIndex === 0}>Previous</button>
+					{#if isInSummary}
+						<button onclick={checkMistakes} disabled={currentIndex === 0}>Go back to check your mistakes</button>
+					{:else}
+						<button onclick={prevQuestion} disabled={currentIndex === 0}>Previous</button>
+					{/if}
+					
 					{#if currentIndex < questions.length }
 						<button onclick={nextQuestion} disabled={currentIndex === questions.length}>{currentIndex === questions.length - 1 ? "Summary" : "Next"}</button>
 					{/if}
 				{/if}
 		</div>
-		{#if submitted && result}
+		{#if submitted && result && currentIndex >= questions.length }
 			<section class="summary card">
 				<h2>Results</h2>
 				<p>You answered {result.score} out of {result.total} correctly.</p>

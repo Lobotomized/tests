@@ -50,7 +50,7 @@
 	{#if q.code}
 
 	<pre class="language-javascript">
-	<code class="language-javascript" bind:this={codeElement}></code>
+<code class="language-javascript" bind:this={codeElement}></code>
 	</pre>
 	{/if}
 	<ol class="options">
