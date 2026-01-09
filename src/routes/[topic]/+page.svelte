@@ -159,7 +159,7 @@
 			{:else}
 				<button onclick={prevQuestion} disabled={currentIndex === 0}>Previous</button>
 					{#if currentIndex < questions.length }
-						<button onclick={nextQuestion} disabled={currentIndex === questions.length}>{currentIndex === questions.length - 1 ? "Check your mistakes" : "Next"}</button>
+						<button onclick={nextQuestion} disabled={currentIndex === questions.length}>{currentIndex === questions.length - 1 ? "Summary" : "Next"}</button>
 					{/if}
 				{/if}
 		</div>
