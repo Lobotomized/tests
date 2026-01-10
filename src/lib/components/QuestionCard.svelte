@@ -25,7 +25,8 @@
 	function choose(oi: number) {
 		onSelect?.(oi);
 	}
-	let codeElement;
+	// svelte-ignore non_reactive_update
+		let codeElement: HTMLElement;
 
 	// Update the DOM directly when q changes
 	$effect(() => {
@@ -63,6 +64,7 @@
 				>
 				{#key selectedIndex}
 					<input
+						class="option-input"
 						type="radio"
 						name={'q-' + q.id}
 						checked={selectedIndex === oi}
@@ -78,6 +80,13 @@
 </section>
 
 <style>
+	.option{
+		cursor: pointer;
+	}
+	.option-input{
+		cursor: pointer;
+		accent-color: var(--ok);
+	}
 	.card {
 		background: #fff;
 		border: 1px solid rgba(0, 0, 0, 0.1);

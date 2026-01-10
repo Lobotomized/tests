@@ -5,6 +5,7 @@
 
 	import { onMount } from 'svelte';
 	import { topics } from '../topics.js';
+	import IncorrectSources from '$lib/components/IncorrectSources.svelte';
 
 	let { data } = $props();
 	// svelte-ignore state_referenced_locally
@@ -24,22 +25,7 @@
 	onMount(() => {
 		loading = false;
 	});
-	function toYouTubeEmbed(url: string) {
-		try {
-			const u = new URL(url);
-			if (u.hostname.includes('youtube.com')) {
-				const id = u.searchParams.get('v') || '';
-				return id ? `https://www.youtube.com/embed/${id}` : url;
-			}
-			if (u.hostname.includes('youtu.be')) {
-				const id = u.pathname.replace('/', '');
-				return id ? `https://www.youtube.com/embed/${id}` : url;
-			}
-			return url;
-		} catch {
-			return url;
-		}
-	}
+
 	function select(optionIndex: number) {
 		if (submitted) return;
 		selections[currentIndex] = optionIndex;
@@ -81,6 +67,9 @@
 	}
 	function checkMistakes(){
 		currentIndex = 0;
+	}
+	function goToQuestion(q: number){
+		currentIndex = q - 1;
 	}
 </script>
 
@@ -124,36 +113,9 @@
 				/>
 			</div>
 		{:else}
-			<section class="study card">
-				{#if result}
-					{#if incorrectSources.length === 0}
-						<p>Great job! No mistakes to study.</p>
-					{:else}
-						{#each incorrectSources as src}
-							{#if 'url' in src && src.url}
-								<div class="study-item">
-									<h3>{src.title}</h3>
-									<div class="video">
-										<iframe
-											src={toYouTubeEmbed(src.url)}
-											title={src.title}
-											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-											allowfullscreen	
-										></iframe>
-									</div>
-								</div>
-							{/if}
-
-							{#if 'text' in src && src.text}
-								<div class="study-item">
-									<h3>{src.title}</h3>
-									<p>{src.text}</p>
-								</div>
-							{/if}
-						{/each}
-					{/if}
-				{/if}
-			</section>
+			{#if result}
+				<IncorrectSources goToQuestion={goToQuestion} result={result} incorrectSources={result.sources || []} />
+			{/if}
 		{/if}
 		<div class="actions">
 			{#if !submitted}
