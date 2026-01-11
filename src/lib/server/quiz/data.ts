@@ -1,9 +1,11 @@
 import type { QuestionFull } from '$lib/quiz/types';
 import jsAsync from './jsAsync.ts';
+import jsInheritance from './jsInheritance.ts';
 import type { TextSource, VideoSource } from './sources.ts';
 
 const questionsObject: { [key: string]: QuestionFull[] } = {
-	jsAsync: jsAsync
+	jsAsync: jsAsync,
+	jsInheritance: jsInheritance,
 };
 
 export function getQuestions(topic: string) {

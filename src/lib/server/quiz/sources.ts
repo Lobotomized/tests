@@ -20,6 +20,14 @@ export const videoSources: VideoSources = {
 	promises: {
 		url: 'https://www.youtube.com/watch?v=Xs1EMmBLpn4',
 		title: 'Promise Execution'
+	},
+	superKeyword: {
+		url:"https://www.youtube.com/watch?v=zmaIrfJjO9E",
+		title: 'Super keyword'
+	},
+	constructorFunctionInheritance: {
+		url: 'https://www.youtube.com/watch?v=kDGMQyd0DVU',
+		title: 'Constructor function inheritance'
 	}
 };
 
@@ -37,5 +45,17 @@ export const textSources: TextSources = {
 			The await statement blocks the direct parent function.
 		`,
 		title: 'Async in forEach'
+	},
+	classOrder : {
+		text: `
+			Calling the "super()" keyword function is like calling the parent constructor while sending the current "this" to it.
+		`,
+		title: 'Calling "super()" order'
+	},
+	staticMethods: {
+		text: `
+			Static methods are called on the class itself, not on the instances of the class.
+		`,
+		title: 'Static methods'
 	}
 };

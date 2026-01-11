@@ -14,8 +14,8 @@
 		</li>
 		<li class="link-item">
 			<a href={resolve('/jsInheritance')} data-sveltekit-preload-data="tap" class="link-card">
-				<span class="link-icon">🔗</span>
-				<span class="link-text">JavaScript Inheritance</span>
+				<span class="link-icon">👨‍👩‍👧‍👦</span>
+				<span class="link-text">{topics.jsInheritance}</span>
 			</a>
 		</li>
 	</ul>
