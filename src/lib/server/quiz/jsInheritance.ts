@@ -1,6 +1,5 @@
 import type { QuestionFull } from '$lib/quiz/types';
 import { textSources, videoSources } from '$lib/server/quiz/sources';
-import { text } from 'stream/consumers';
 
 
 

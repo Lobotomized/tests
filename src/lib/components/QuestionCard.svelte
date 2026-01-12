@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { QuestionPublic } from '$lib/quiz/types';
+	import IncorrectSource from './IncorrectSource.svelte';
 	import Prism from 'prismjs';
 	import 'prismjs/components/prism-javascript';
 	import 'prismjs/themes/prism-tomorrow.css';
@@ -77,6 +78,13 @@
 			</li>
 		{/each}
 	</ol>
+{#if isCorrect === false}
+	{#if q.videoSource || q.textSource}
+		<div class="m-3">
+		<IncorrectSource src={{ source: (q.videoSource || q.textSource), indices: [q.id - 1] }} />
+		</div>
+	{/if}
+{/if}
 </section>
 
 <style>

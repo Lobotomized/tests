@@ -57,5 +57,25 @@ export const textSources: TextSources = {
 			Static methods are called on the class itself, not on the instances of the class.
 		`,
 		title: 'Static methods'
+	},
+	implicitThis: {
+		text: `
+			Implicit binding occurs whenever a function is called as a method of an object.
+			You can think for it as "What is on the left of the function when it is called?"
+			For instance obj.method() the "this" keyword will be bound to the "obj" object.
+		`,
+		title: 'Implicit binding'
+	},
+	thisHierarchy: {
+		text: `
+			There is a priority hierarchy for the "this" keyword.<br/>
+			1. New binding - When a function is called with the "new" keyword, the "this" keyword is bound to the new object being created.<br/>
+			2. Explicit binding - When a function is called with the "call", "apply" or "bind" methods, the "this" keyword is bound to the object passed as the first argument.<br/>
+			3. Implicit binding - When a function is called as a method of an object, the "this" keyword is bound to the object.<br/>
+			4. Default binding - When none of the above bindings apply, the "this" keyword is bound in different ways depending on the environment. Whenever the code uses "use strict" it will always be undefined.<br/>
+<br/>
+			The higher hierarchy binding will always be used.
+		`,	
+		title: 'This hierarchy'
 	}
 };
