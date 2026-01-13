@@ -298,6 +298,29 @@ obj.loop();`,
             'Throws an error'
         ],
     },
+
+    {
+        id: 12,
+        prompt: 'What does the following code log?',
+        topic: 'js',
+        code: `function Person(name) {
+  this.name = name;
+  setTimeout(function() {
+    console.log(this.name);
+  }, 100);
+}
+
+new Person('Diana');`,
+        correctIndex: 1,
+        textSource: textSources.defaultThis,
+        options: [
+            'Logs "Diana"',
+            'Logs undefined',
+            'Logs "Person"',
+            'Logs the Person instance',
+            'Throws an error'
+        ],
+    },
 ];
 
 export default questions;

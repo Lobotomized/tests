@@ -297,7 +297,7 @@ processArrayB(arr)
 		correctIndex: 2,
 		textSource: textSources.asyncFunctionsInForEach
 	},
-		{
+	{
 		id: 10,
 		prompt: 'What does the following code log and approximately how long it will take?',
 		topic: 'js',
@@ -320,7 +320,202 @@ console.log("End");
 		],
 		correctIndex: 2,
 		videoSource: videoSources.asyncVideo
-	}
+	},
+
+	{
+		id: 11,
+		prompt: 'What is the difference between Promise.race, Promise.all and Promise.any?',
+		topic: 'js',
+		code: ``,
+		options: [
+			'Promise.race resolves when the first promise settles (fulfills or rejects), Promise.all resolves when all promises fulfill (or rejects on the first reject), Promise.any resolves when the first promise fulfills (or rejects if all reject)',
+			'Promise.race resolves when all promises settle but only returns the first settled promise, Promise.all resolves when all promises fullfill, Promise.any resolves when all promise fulfill or reject',
+			'Promise.race resolves when the first promise rejects, Promise.all resolves when any promise fulfills, Promise.any resolves when all promises reject',
+			'Promise.race, Promise.all and Promise.any all behave the same way just have slightly different syntax',
+			'Promise.race rejects when the first promise fulfills, Promise.all rejects when any promise rejects, Promise.any rejects when the first promise settles',
+			'Promise.race fulfills when all promises reject, Promise.all fulfills when any promise rejects, Promise.any fulfills when the first promise rejects'
+		],
+		correctIndex: 0,
+		videoSource: videoSources.promiseMethods
+	},
+	{
+		id: 12,
+		prompt: 'What is Promise.allSettled and how does it behave?',
+		topic: 'js',
+		code: ``,
+		options: [
+			'Promise.allSettled waits for all promises to settle (fulfill or reject) and rejects returning an array of objects with status and value/reason for each promise',
+			'Promise.allSettled rejects when any promise rejects and returns only the rejection reason',
+			'Promise.allSettled is the same as Promise.all but with a slightly different syntax',
+			'Promise.allSettled waits for all promises to settle (fulfill or reject) and resolves returning an array of objects with status and value/reason for each promise',
+			'Promise.allSettled only works with promises that resolve successfully and ignores rejections',
+			'Promise.allSettled returns a single promise that resolves to the first settled value'
+		],
+		correctIndex: 3,
+		videoSource: videoSources.promiseMethods
+	},
+
+
+	{
+		id: 13,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		code: `function timeout(log,ms,success){
+  return new Promise((resolve,reject) => {
+    setTimeout(() => {
+      if(!success){
+        reject(log)
+      }
+      resolve(log);
+    }, ms)
+  })
+}
+
+Promise.allSettled([
+  timeout("1",100,false),
+  timeout("2",10, false),
+  timeout("3",1, false)
+]).then((resp) =>{ 
+  console.log("Success ", resp)
+}).catch((err) => {
+  console.log("Error ", err)
+})`,
+		options: [
+			'Success [ { status: "rejected", reason: "1" }, { status: "rejected", reason: "2" }, { status: "rejected", reason: "3" } ]',
+			'Error 3',
+			'Success [ { status: "fulfilled", value: "1" }, { status: "fulfilled", value: "2" }, { status: "fulfilled", value: "3" } ]',
+			'Success [ { status: "fulfilled", value: "3" }, { status: "fulfilled", value: "2" }, { status: "fulfilled", value: "1" } ]',
+			'Error [ { status: "rejected", reason: "1" }, { status: "rejected", reason: "2" }, { status: "rejected", reason: "3" } ]',
+			'Success []'
+		],
+		correctIndex: 0,
+		videoSource: videoSources.promiseMethods
+	},
+
+	{
+		id: 14,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		code: `function timeout(log,ms,success){
+  return new Promise((resolve,reject) => {
+    setTimeout(() => {
+      if(!success){
+        reject(log)
+      }
+      resolve(log);
+    }, ms)
+  })
+}
+
+Promise.all([
+  timeout("1",100,false),
+  timeout("2",10, true),
+  timeout("3",1, true)
+]).then((resp) =>{ 
+  console.log("Success ", resp)
+}).catch((err) => {
+  console.log("Error ", err)
+})`,
+		options: [	
+			'Success ["2","3"]',
+			'Error "1"',
+			'Success ["1","2","3"]',
+			'Error "2"',
+			'Success ["3","2","1"]',
+			'Error "3"'
+		],
+		correctIndex: 1,
+		videoSource: videoSources.promiseMethods
+	},
+	{
+		id: 15,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		code: `function timeout(log,ms,success){
+  return new Promise((resolve,reject) => {
+    setTimeout(() => {
+      if(!success){
+        reject(log)
+      }
+      resolve(log);
+    }, ms)
+  })
+}
+
+Promise.any([
+  timeout("1",100,false),
+  timeout("2",10, true),
+  timeout("3",1, true)
+]).then((resp) =>{ 
+  console.log("Success ", resp)
+}).catch((err) => {
+  console.log("Error ", err)
+})`,
+		options: [
+			'Success ["3","2","1"]',
+			'Success "2"',
+			'Success "1"',
+			'Error ["1","2","3"]',
+			'Error "3"',
+			'Success "3"'
+		],
+		correctIndex: 5,
+		videoSource: videoSources.promiseMethods
+	},
+
+	{
+		id: 16,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		code: `function timeout(log,ms,success){
+  return new Promise((resolve,reject) => {
+    setTimeout(() => {
+      if(!success){
+        reject(log)
+      }
+      resolve(log);
+    }, ms)
+  })
+}
+
+Promise.race([
+  timeout("1",100,false),
+  timeout("2",10, true),
+  timeout("3",1, false)
+]).then((resp) =>{ 
+  console.log("Success ", resp)
+}).catch((err) => {
+  console.log("Error ", err)
+})`,
+		options: [
+			'Success "3"',
+			'Error "3"',
+			'Success "2"',
+			'Error "2"',
+			'Success "1"',
+			'Error "1"'
+		],
+		correctIndex: 1,
+		videoSource: videoSources.promiseMethods
+	},
+
+
+	{
+		id: 17,
+		prompt: 'What is the difference between Promise.any and Promise.race?',
+		topic: 'js',
+		code: ``,
+		options: [
+			'Promise.any resolves when the first promise fulfills (or rejects only if all reject), while Promise.race resolves or rejects as soon as the first promise settles (fulfills or rejects)',
+			'Promise.any and Promise.race behave exactly the same way with slightly different syntax',
+			'Promise.any rejects when the first promise rejects, while Promise.race fulfills when the first promise fulfills',
+			'Promise.any waits for all promises to settle and only then resolves with the first one, while Promise.race returns the first fulfilled promise',
+			'Promise.any only works with promises that fulfill, while Promise.race only works with promises that reject',
+			'Promise.any returns an array of all fulfilled promises, while Promise.race returns the first settled promise'
+		],
+		correctIndex: 0,
+		videoSource: videoSources.promiseMethods
+	},
 ];
 
 export default questions;

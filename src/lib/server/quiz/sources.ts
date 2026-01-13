@@ -17,6 +17,10 @@ export const videoSources: VideoSources = {
 		url: 'https://www.youtube.com/watch?v=eiC58R16hb8',
 		title: 'Call stack, Event loop and task queues'
 	},
+	promiseMethods : {
+		url: 'https://www.youtube.com/watch?v=LE_L9OAh6Hk',
+		title: 'Promise Methods'
+	},
 	promises: {
 		url: 'https://www.youtube.com/watch?v=Xs1EMmBLpn4',
 		title: 'Promise Execution'
