@@ -31,9 +31,10 @@
 
 	// Update the DOM directly when q changes
 	$effect(() => {
+		const qValue = q;
 		if (codeElement) {
 		codeElement.innerHTML = Prism.highlight(
-			q?.code || '', 
+			qValue?.code || '', 
 			Prism.languages.javascript, 
 			'javascript'
 		);
