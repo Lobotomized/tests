@@ -321,43 +321,8 @@ console.log("End");
 		correctIndex: 2,
 		videoSource: videoSources.asyncVideo
 	},
-
-	{
+{
 		id: 11,
-		prompt: 'What is the difference between Promise.race, Promise.all and Promise.any?',
-		topic: 'js',
-		code: ``,
-		options: [
-			'Promise.race resolves when the first promise settles (fulfills or rejects), Promise.all resolves when all promises fulfill (or rejects on the first reject), Promise.any resolves when the first promise fulfills (or rejects if all reject)',
-			'Promise.race resolves when all promises settle but only returns the first settled promise, Promise.all resolves when all promises fullfill, Promise.any resolves when all promise fulfill or reject',
-			'Promise.race resolves when the first promise rejects, Promise.all resolves when any promise fulfills, Promise.any resolves when all promises reject',
-			'Promise.race, Promise.all and Promise.any all behave the same way just have slightly different syntax',
-			'Promise.race rejects when the first promise fulfills, Promise.all rejects when any promise rejects, Promise.any rejects when the first promise settles',
-			'Promise.race fulfills when all promises reject, Promise.all fulfills when any promise rejects, Promise.any fulfills when the first promise rejects'
-		],
-		correctIndex: 0,
-		videoSource: videoSources.promiseMethods
-	},
-	{
-		id: 12,
-		prompt: 'What is Promise.allSettled and how does it behave?',
-		topic: 'js',
-		code: ``,
-		options: [
-			'Promise.allSettled waits for all promises to settle (fulfill or reject) and rejects returning an array of objects with status and value/reason for each promise',
-			'Promise.allSettled rejects when any promise rejects and returns only the rejection reason',
-			'Promise.allSettled is the same as Promise.all but with a slightly different syntax',
-			'Promise.allSettled waits for all promises to settle (fulfill or reject) and resolves returning an array of objects with status and value/reason for each promise',
-			'Promise.allSettled only works with promises that resolve successfully and ignores rejections',
-			'Promise.allSettled returns a single promise that resolves to the first settled value'
-		],
-		correctIndex: 3,
-		videoSource: videoSources.promiseMethods
-	},
-
-
-	{
-		id: 13,
 		prompt: 'What does the following code log?',
 		topic: 'js',
 		code: `function timeout(log,ms,success){
@@ -393,7 +358,7 @@ Promise.allSettled([
 	},
 
 	{
-		id: 14,
+		id: 12,
 		prompt: 'What does the following code log?',
 		topic: 'js',
 		code: `function timeout(log,ms,success){
@@ -428,7 +393,7 @@ Promise.all([
 		videoSource: videoSources.promiseMethods
 	},
 	{
-		id: 15,
+		id: 13,
 		prompt: 'What does the following code log?',
 		topic: 'js',
 		code: `function timeout(log,ms,success){
@@ -464,7 +429,7 @@ Promise.any([
 	},
 
 	{
-		id: 16,
+		id: 14,
 		prompt: 'What does the following code log?',
 		topic: 'js',
 		code: `function timeout(log,ms,success){
@@ -499,6 +464,42 @@ Promise.race([
 		videoSource: videoSources.promiseMethods
 	},
 
+
+	{
+		id: 15,
+		prompt: 'What is the difference between Promise.race, Promise.all and Promise.any?',
+		topic: 'js',
+		code: ``,
+		options: [
+			'Promise.race resolves when the first promise settles (fulfills or rejects), Promise.all resolves when all promises fulfill (or rejects on the first reject), Promise.any resolves when the first promise fulfills (or rejects if all reject)',
+			'Promise.race resolves when all promises settle but only returns the first settled promise, Promise.all resolves when all promises fullfill, Promise.any resolves when all promise fulfill or reject',
+			'Promise.race resolves when the first promise rejects, Promise.all resolves when any promise fulfills, Promise.any resolves when all promises reject',
+			'Promise.race, Promise.all and Promise.any all behave the same way just have slightly different syntax',
+			'Promise.race rejects when the first promise fulfills, Promise.all rejects when any promise rejects, Promise.any rejects when the first promise settles',
+			'Promise.race fulfills when all promises reject, Promise.all fulfills when any promise rejects, Promise.any fulfills when the first promise rejects'
+		],
+		correctIndex: 0,
+		videoSource: videoSources.promiseMethods
+	},
+	{
+		id: 16,
+		prompt: 'What is Promise.allSettled and how does it behave?',
+		topic: 'js',
+		code: ``,
+		options: [
+			'Promise.allSettled waits for all promises to settle (fulfill or reject) and rejects returning an array of objects with status and value/reason for each promise',
+			'Promise.allSettled rejects when any promise rejects and returns only the rejection reason',
+			'Promise.allSettled is the same as Promise.all but with a slightly different syntax',
+			'Promise.allSettled waits for all promises to settle (fulfill or reject) and resolves returning an array of objects with status and value/reason for each promise',
+			'Promise.allSettled only works with promises that resolve successfully and ignores rejections',
+			'Promise.allSettled returns a single promise that resolves to the first settled value'
+		],
+		correctIndex: 3,
+		videoSource: videoSources.promiseMethods
+	},
+
+
+// 	
 
 	{
 		id: 17,
