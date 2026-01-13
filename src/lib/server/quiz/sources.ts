@@ -77,5 +77,36 @@ export const textSources: TextSources = {
 			The higher hierarchy binding will always be used.
 		`,	
 		title: 'This hierarchy'
+	},
+	bind: {
+		text: `
+			The bind method creates a new function which has "this" and the arguments after permanently bound to the provided value.
+			The first argument in bind will always be the this and the rest of the arguments will be the arguments of the new function.
+			Every time you call the new function with an argument it will be set as the next argument after the ones you provided in bind.
+		`,
+		title: 'Bind method'
+	},
+
+	thisInArrowFunctions: {
+		text: `
+			Arrow functions do not have their own "this" keyword.
+			Instead, they inherit the "this" from one level above them.
+		`,
+		title: '"this" binding in arrow functions'
+	},
+	useStrictForThis: {
+		text: `
+			When using "use strict" the "this" keyword will be undefined in all cases of "default" binding.
+		`,
+		title: 'Using "use strict" for "this" binding'
+	},
+	defaultThis: {
+		text: `
+			When using "use strict" the "this" keyword will be undefined in all cases of "default" binding. </br>
+			When in browser default binding will always be the window object. </br>
+			When in Node.js and you have default binding from within a function you will get the globalThis </br>
+			When in Node.js and you have default binding from the top level of a file you will get the module.exports object.
+		`,
+		title: 'Default this binding'
 	}
 };
