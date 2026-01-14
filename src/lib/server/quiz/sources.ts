@@ -40,6 +40,152 @@ export const videoSources: VideoSources = {
 };
 
 export const textSources: TextSources = {
+	Infinity: {
+		text: `
+			Infinity is a special number value in javascript that stands for "Infinity". <br/>
+			It is returned when you divide a positive number to zero. <br/>
+			If you divide a negative number to zero, it returns -Infinity. <br/>
+		`,
+		title: 'Infinity'
+	},
+	NotANumber:{
+		text: `
+			NaN is a special number value in javascript that stands for "Not a Number". <br/>
+			It is returned from arithmetic operations on non-numeric values or you try to make an impossible arithmetic operation. <br/>
+		`,
+		title: 'NaN'
+	},
+	detailedAndOperator: {
+		text: `
+			Logical AND operator (&&) returns the first falsy value it encounters. <br/>
+			If all operands are truthy, it returns the last operand. <br/>
+		`,
+		title: 'Logical AND operator'
+	},
+	detailedOrOperator: {
+		text: `
+			Logical OR operator (||) returns the first truthy value it encounters. <br/>
+			If all operands are falsy, it returns the last operand. <br/>
+		`,
+		title: 'Logical OR operator'
+	},
+	logicalOperators: {
+		text: `
+			=== - strict equality operator <br/>
+			!== - strict inequality operator <br/>
+			== - loose equality operator (first casts operands to the same type) <br/>
+			|| - logical OR operator <br/>
+			&& - logical AND operator <br/>
+			! - logical NOT operator <br/>
+			?? - nullish coalescing operator (a ?? b will return a if a is not null or undefined) <br/>
+			?: - ternary operator (a ? b : c  will return b if a is truthy and otherwise c)  <br/>
+		`,
+		title: 'Boolean operators'
+	},
+	operatorPrecedense: {
+		text: `
+			Operator precedence in javascript determines the order in which operations are performed (higher precedence number is performed first).  <br/>
+			If operators have the same precedence, they are evaluated from left to right. <br/>
+			The precedense is at follows: <br/>
+			18: grouping: putting expressions in () <br/>
+			17: access and call: x[y], new x(y), x(y), import(x) <br/>
+			16: new without argument list: new x  <br/>
+			15: postfix operators: x++, x-- <br/>
+			14: prefix operators: ++x, --x, +x, -x, ~x, !x, typeof x, void x, delete x, await x <br/>
+			13: exponentiation: x**y <br/>
+			12: multiplicative operators: x*y, x/y, x%y <br/>
+			11: additive operators: x+y, x-y <br/>
+			10: bitwise shift: x << y, x >> y, x >>> y <br/>
+			9: relational operators: <, <=, >, >=, x in y, x instanceof y,  <br/>
+			8: equality operators: ==, !=, ===, !== <br/>
+			7: bitwise AND: x & y<br/>
+			6: bitwise XOR: x ^ y <br/>
+			5: bitwise OR: x | y <br/>
+			4: logical AND: x && y <br/>
+			3: logical OR, nullish coalescing: x || y, x ?? y <br/>
+			2: assignment and miscellaneous: x = y, x-=y, x+=y, x*=y, x/=y, x%=y, x<<=y, x>>=y, x>>>=y, x&=y, x^=y, x|=y <br/>
+			1: comma: x, y <br/>
+		`,
+		title: 'Operator precedence'
+	},
+	doubleEquals: {
+		text: `
+			Double equals in javascript compares values after casting them to the same type. <br/>
+
+			If types are the same: Use strict equality (===) comparison <br/>
+
+			If one is null and the other is undefined: Return true <br/>
+
+			If one is a number and the other is a string: Convert the string to a number, then compare <br/>
+
+			If one is a boolean: Convert the boolean to a number, then re-compare <br/>
+
+			If one is an object and the other is a primitive: Convert the object to a primitive (using valueOf() then toString()), then re-compare <br/>
+
+			If one is a number/string and the other is a BigInt/Symbol: Special rules apply <br/>
+		`,
+		title: 'Double equals operator'
+	},
+	emptyArrayExamples: {
+		text: `
+			![] is evaluated first (due to operator precedence): <br/>
+
+			The ! operator always converts its operand to a boolean first <br/>
+
+			[] is truthy, so ![] becomes false <br/>
+
+			So we now have: [] == false <br/>
+
+			Type coercion happens in == comparison: <br/>
+
+			According to JavaScript's abstract equality algorithm, when comparing with a boolean, the boolean is converted to a number first <br/>
+
+			false becomes 0 <br/>
+
+			So we now have: [] == 0 <br/>
+
+			Now comparing [] with 0: <br/>
+
+			When comparing an object/array with a number, JavaScript tries to convert the object to a primitive <br/>
+
+			It first calls valueOf() on the array (which returns the array itself - not primitive) <br/>
+
+			Then it calls toString() on the array (which returns an empty string "") <br/>
+
+			So [] becomes "" <br/>
+
+			Now comparing "" == 0: <br/>
+
+			When comparing a string with a number, the string is converted to a number <br/>
+
+			Empty string "" becomes 0 <br/>
+
+			So we have: 0 == 0 which is true <br/>
+		`,
+		title: 'Empty array example'
+	},
+	truthyFalseyValues: {
+		text: `
+			If you cast a value to a boolean it will be either casted to a truthy or falsey value. <br/>
+			In javascript, there are 6 falsy values: false, 0, "", null, undefined, NaN. <br/>
+			All other values are truthy. <br/>
+		`,
+		title: 'Truthy and falsey values'
+	},
+	stringCastings: {
+		text: `
+			In javascript, you can convert a value to a string using the toString() method or the String() function. <br/>
+			If you try to concatenate a string with a non-string value, the non-string value will be casted to string. <br/>
+			When you cast empty array to string, it will return an empty string. <br/>
+			When you cast array with elements to string, it will return a string with elements separated by commas. <br/>
+			When you cast object to string you get "[object Object]" <br/>
+			When you cast null to string you get "null" <br/>
+			When you cast undefined to string you get "undefined" <br/>
+			When you cast NaN to string you get "NaN" <br/>
+			When you cast a number to string you get a string representation of that number. For instance 8 would become "8". <br/>
+		`,
+		title: 'String castings'
+	},
 	byRefByValue: {
 		text: `
 			In javascript, variables can be passed by reference or by value. <br/>

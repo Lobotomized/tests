@@ -3,4 +3,5 @@ export const topics: Record<string, string> = {
     jsInheritance: 'Javascript Inheritance',
     jsThis: 'Javascript "this" keyword',
     jsScope: 'Javascript Scope, Closures and Hoisting',
+    jsExpressions: 'Javascript Expressions',
 }

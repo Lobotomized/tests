@@ -30,6 +30,12 @@
 				<span class="link-text">{topics.jsScope}</span>
 			</a>
 		</li>
+		<li class="link-item">
+			<a href={resolve('/jsExpressions')} data-sveltekit-preload-data="tap" class="link-card">
+				<span class="link-icon">🧮</span>
+				<span class="link-text">{topics.jsExpressions}</span>
+			</a>
+		</li>
 	</ul>
 </div>
 

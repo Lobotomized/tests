@@ -3,6 +3,7 @@ import jsAsync from './jsAsync.ts';
 import jsInheritance from './jsInheritance.ts';
 import jsScope from './jsScope.ts';
 import jsThis from './jsThis.ts';
+import jsExpressions from './jsExpressions.ts';
 import type { TextSource, VideoSource } from './sources.ts';
 
 const questionsObject: { [key: string]: QuestionFull[] } = {
@@ -10,6 +11,7 @@ const questionsObject: { [key: string]: QuestionFull[] } = {
 	jsInheritance: jsInheritance,
 	jsThis: jsThis,
 	jsScope: jsScope,
+	jsExpressions: jsExpressions,
 };
 
 export function getQuestions(topic: string) {

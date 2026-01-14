@@ -487,7 +487,7 @@ obj.outer();`,
     },
 
     {
-        id: 19,
+        id: 19, 
         prompt: 'What does the following code log?',
         topic: 'js',
         code: `const config = {

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { getQuestions, grade } from './data';
 
-const topics = ['jsAsync', 'jsInheritance', 'jsThis', 'jsScope'] as const;
+const topics = ['jsAsync', 'jsInheritance', 'jsThis', 'jsScope', 'jsExpressions'] as const;
 
 describe('grade()', () => {
 	it('grades all topics with intentionally wrong selections and returns sources', () => {
