@@ -1,5 +1,6 @@
 import type { QuestionFull } from '$lib/quiz/types';
 import { textSources, videoSources } from '$lib/server/quiz/sources';
+import { text } from 'stream/consumers';
 
 //QUESTION
 
@@ -50,7 +51,7 @@ console.log('Loop end');`,
 			'Loop start, Loop end, Timeout 0, Timeout 1, Promise 0, Promise 1'
 		],
 		correctIndex: 1,
-		videoSource: videoSources.asyncVideo
+		sources: [videoSources.asyncVideo]
 	},
 	{
 		id: 2,
@@ -82,7 +83,7 @@ console.log('End');`,
 			'Start, End, Regular Timeout, Promise in Timeout, Promise 1, Promise 2, Timeout in Promise'
 		],
 		correctIndex: 0,
-		videoSource: videoSources.asyncVideo
+		sources: [videoSources.asyncVideo]
 	},
 
 	{
@@ -109,7 +110,7 @@ console.log('End');`,
 			'Start, End, Promise 1, Promise 3, Timeout 2, Timeout 1, Promise 2'
 		],
 		correctIndex: 0,
-		videoSource: videoSources.asyncVideo
+		sources: [videoSources.asyncVideo]
 	},
 	{
 		id: 4,
@@ -130,7 +131,7 @@ console.log("End");`,
 			'Start, Promise 1, End, Promise 2, Timeout 1, Timeout 2'
 		],
 		correctIndex: 1,
-		videoSource: videoSources.asyncVideo
+		sources: [videoSources.asyncVideo]
 	},
 	{
 		id: 5,
@@ -167,7 +168,7 @@ queueMicrotask(() => {
 			'1, 2, 3, 4, 5, 6, 7, 8'
 		],
 		correctIndex: 4,
-		videoSource: videoSources.promises
+		sources: [videoSources.promises]
 	},
 	{
 		id: 6,
@@ -196,7 +197,7 @@ console.log('end');
 			'start, end, step 1'
 		],
 		correctIndex: 2,
-		textSource: textSources.asyncFunctionsExecution
+		sources: [textSources.asyncFunctionsExecution]
 	},
 	{
 		id: 7,
@@ -230,7 +231,7 @@ processArrayA(arr);
 			'It will log "1, 2, 3, 4, 5, Done forEach" and it will happen instantly'
 		],
 		correctIndex: 2,
-		textSource: textSources.asyncFunctionsInForEach
+		sources: [textSources.asyncFunctionsInForEach]
 	},
 	{
 		id: 8,
@@ -261,7 +262,7 @@ console.log(5)
 			'1, 2, 5'
 		],
 		correctIndex: 3,
-		videoSource: videoSources.promises
+		sources: [videoSources.promises]
 	},
 	{
 		id: 9,
@@ -295,7 +296,7 @@ processArrayB(arr)
 			'It will log "Done for-loop" and it will take 5 seconds'
 		],
 		correctIndex: 2,
-		textSource: textSources.asyncFunctionsInForEach
+		sources: [textSources.asyncFunctionsInForEach]
 	},
 	{
 		id: 10,
@@ -319,7 +320,7 @@ console.log("End");
 			'It will log "Start, End, Promise 1, Promise 2, Timeout 1, Timeout 2" and it will take approximately 4 seconds'
 		],
 		correctIndex: 2,
-		videoSource: videoSources.asyncVideo
+		sources: [videoSources.asyncVideo]
 	},
 {
 		id: 11,
@@ -354,7 +355,7 @@ Promise.allSettled([
 			'Success []'
 		],
 		correctIndex: 0,
-		videoSource: videoSources.promiseMethods
+		sources: [videoSources.promiseMethods]
 	},
 
 	{
@@ -390,7 +391,7 @@ Promise.all([
 			'Error "3"'
 		],
 		correctIndex: 1,
-		videoSource: videoSources.promiseMethods
+		sources: [videoSources.promiseMethods]
 	},
 	{
 		id: 13,
@@ -425,7 +426,7 @@ Promise.any([
 			'Success "3"'
 		],
 		correctIndex: 5,
-		videoSource: videoSources.promiseMethods
+		sources: [videoSources.promiseMethods]
 	},
 
 	{
@@ -461,7 +462,7 @@ Promise.race([
 			'Error "1"'
 		],
 		correctIndex: 1,
-		videoSource: videoSources.promiseMethods
+		sources: [videoSources.promiseMethods]
 	},
 
 
@@ -479,7 +480,7 @@ Promise.race([
 			'Promise.race fulfills when all promises reject, Promise.all fulfills when any promise rejects, Promise.any fulfills when the first promise rejects'
 		],
 		correctIndex: 0,
-		videoSource: videoSources.promiseMethods
+		sources: [videoSources.promiseMethods]
 	},
 	{
 		id: 16,
@@ -495,11 +496,9 @@ Promise.race([
 			'Promise.allSettled returns a single promise that resolves to the first settled value'
 		],
 		correctIndex: 3,
-		videoSource: videoSources.promiseMethods
+		sources: [videoSources.promiseMethods]
 	},
 
-
-// 	
 
 	{
 		id: 17,
@@ -515,8 +514,68 @@ Promise.race([
 			'Promise.any returns an array of all fulfilled promises, while Promise.race returns the first settled promise'
 		],
 		correctIndex: 0,
-		videoSource: videoSources.promiseMethods
+		sources: [videoSources.promiseMethods]
 	},
+
+	{
+		id: 18,
+		prompt: 'Which statement is wrong?',
+		topic: 'js',
+		code: ``,
+		options: [
+			'The call stack is processing everything last in, first out.',
+			'The macrotask queue has prioritization over the microtask queue and it will be processed before the microtask queue.',
+			'The macro and micro queues are processed first in, first out.',
+			'Callback functions are functions passed as arguments that are executed at a later time.',
+			'async functions in javascript are a syntactic sugar on top of promises.'
+		],
+		correctIndex: 1,
+		sources: [videoSources.eventLoop]
+	},
+
+	{
+		id: 19,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		code: `queueMicrotask(() => {
+  console.log(1)
+})
+process.nextTick(() =>{
+  console.log(2)
+})`,
+		options: [
+			'1, 2',
+			'2, 1',
+			'1',
+			'2',
+			'Nothing',
+			'Error'
+		],
+		correctIndex: 1,
+		sources: [textSources.nextTickAndSetImmediate]
+	},
+	{
+		id: 20,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		code: `queueMicrotask(() => {
+  console.log(1)
+})
+setImmediate(() =>{
+  console.log(2)
+})`,
+		options: [
+			'1, 2',
+			'2, 1',
+			'1',
+			'2',
+			'Nothing',
+			'Error'
+		],
+		correctIndex: 0,
+		sources: [textSources.nextTickAndSetImmediate]
+	}
+	
 ];
 
 export default questions;

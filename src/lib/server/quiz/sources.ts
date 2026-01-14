@@ -13,6 +13,10 @@ export type TextSources = {
 	[index: string]: TextSource;
 };
 export const videoSources: VideoSources = {
+	closures: {
+		url: 'https://www.youtube.com/watch?v=6Ixyltr8_R0',
+		title: 'Javascript closures'
+	},
 	asyncVideo: {
 		url: 'https://www.youtube.com/watch?v=eiC58R16hb8',
 		title: 'Call stack, Event loop and task queues'
@@ -36,6 +40,42 @@ export const videoSources: VideoSources = {
 };
 
 export const textSources: TextSources = {
+	byRefByValue: {
+		text: `
+			In javascript, variables can be passed by reference or by value. <br/>
+			Primitive types (string, number, boolean, null, undefined) are passed by value. <br/>
+			Non-primitive types (objects, arrays, functions) are passed by reference. <br/>
+			This means that when you have a variable representing object, the variable itself is a pointer to the object.
+		`,
+		title: 'Pass by reference or by value'
+	},
+	closures: {
+		text: `
+			Closure is the access a child function has to the scope of the parent function from which was created. 
+		`,
+		title: 'Javascript closures'
+	},
+	jsHoisting:{
+		text: `
+			Hoisting is a javascript mechanism where variable and function declarations (registering the variable in the same scope) 
+			are moved to the top of their containing scope but initializations (assigning a value in the variable) are not.<br/>
+			let and const cannot be referenced before they appear in the code but var is by default initialized with undefined. <br/>
+			This means that if you reference var before it appears in the code it's value will be undefined. <br/>
+			Function definitions are also hoisted and can be called before they appear in the code. <br/>
+
+		`,
+		title: 'Javascript hoisting'
+	},
+	scope:{
+		text: `
+			Scope in javascript represents the accessibility of variables. Different variables have different scopes.</br>
+			let and const have block scope. Block scope means that the variables are only accessible within the block 
+			(statements enclosed in braces {}) they are defined in. <br/>
+			var has function scope. Function scope means that the variables are only accessible within the function they are defined in. <br/>
+			function definitions in javascript have function scope if there is no 'use strict' and block scope otherwise.
+		`,
+		title: 'Types of scope'
+	},
 	asyncFunctionsExecution: {
 		text: `
 		JavaScript async functions execute synchronously until they hit an await statement. If the code after the await statement is not asynchronous, it will still be executed synchronously. 
@@ -112,5 +152,13 @@ export const textSources: TextSources = {
 			When in Node.js and you have default binding from the top level of a file you will get the module.exports object.
 		`,
 		title: 'Default this binding'
+	},
+	nextTickAndSetImmediate : {
+		text: `
+			When we pass a function to process.nextTick(), we instruct the engine to invoke this function immediately after the current operation completes, 
+			before moving to the next phase in the event loop. <br/>
+			Any function passed as the setImmediate() argument is a callback that's executed in the next iteration of the event loop.
+		`,
+		title: 'process.nextTick() and setImmediate()'
 	}
 };

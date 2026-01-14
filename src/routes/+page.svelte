@@ -24,6 +24,12 @@
 				<span class="link-text">{topics.jsThis}</span>
 			</a>
 		</li>
+		<li class="link-item">
+			<a href={resolve('/jsScope')} data-sveltekit-preload-data="tap" class="link-card">
+				<span class="link-icon">🔍</span>
+				<span class="link-text">{topics.jsScope}</span>
+			</a>
+		</li>
 	</ul>
 </div>
 

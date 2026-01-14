@@ -20,7 +20,7 @@ greet();
 obj.greet();
         `,
         correctIndex: 2,
-        textSource: textSources.implicitThis,
+        sources: [textSources.implicitThis],
                 options: [
             'Logs "Alice" "Alice"',
             'Logs "Alice" "undefined"',
@@ -49,7 +49,7 @@ let boundK = k.bind(obj)
 let p = new boundK()
 console.log(p)`,
         correctIndex: 1,
-        textSource: textSources.thisHierarchy,
+        sources: [textSources.thisHierarchy],
         options: [
             'Logs k { a: 5, b: 10 }',
             'Logs k { a: "test", b: "test2" }',
@@ -76,7 +76,7 @@ let boundK =  k.bind(obj)
 let p = new boundK()
 console.log(p)`,
         correctIndex: 0,
-        textSource: textSources.thisHierarchy,
+        sources: [textSources.thisHierarchy],
         options: [
             'Logs k {}',
             'Logs undefined',
@@ -109,7 +109,7 @@ obj.test = test.bind(obj2);
 
 obj.test()`,
         correctIndex: 1,
-        textSource: textSources.thisHierarchy,
+        sources: [textSources.thisHierarchy],
         options: [
             'Logs obj { a: 5, b: 20 }',
             'Logs obj2 { a: 30, b: 30 }',
@@ -133,7 +133,7 @@ function sayName(age, country) {
 const boundFunction = sayName.bind(obj1, 30);
 boundFunction.call(obj2, 'Canada');`,
         correctIndex: 0,
-        textSource: textSources.bind,
+        sources: [textSources.bind],
         options: [
             'Logs "Frank is 30 from Canada"',
             'Logs "Grace is 30 from Canada"',
@@ -160,7 +160,7 @@ boundFunction.call(obj2, 'Canada');`,
 obj.regularFunc();
 obj.arrowFunc();`,
         correctIndex: 2,
-        textSource: textSources.arrowThis,
+        sources: [textSources.arrowThis],
         options: [
             'Logs "Regular: Charlie" "Arrow: Charlie"',
             'Logs "Regular: undefined" "Arrow: undefined"',
@@ -184,7 +184,7 @@ obj.arrowFunc();`,
 };
 obj.greet();`,
         correctIndex: 0,
-        textSource: textSources.defaultThis,
+        sources: [textSources.defaultThis],
         options: [
             'Logs undefined',
             'Logs "Alice"',
@@ -206,7 +206,7 @@ let b =  p();
 console.log(b.k)
 console.log(k)`,
         correctIndex: 4,
-        textSource: textSources.defaultThis,
+        sources: [textSources.defaultThis],
         options: [
             'Logs "5" and "5"',
             'Logs "CALL ME AS A NON CONSTRUCTOR" and "5"',
@@ -236,7 +236,7 @@ console.log(getValue());
 console.log(getValue.call(obj)); 
 console.log(getValue.apply(obj));`,
         correctIndex: 3,
-        textSource: textSources.thisHierarchy,
+        sources: [textSources.thisHierarchy],
         options: [
             'Logs 42 42 42 42',
             'Logs 42 undefined 42 42',
@@ -262,7 +262,7 @@ console.log(getValue.apply(obj));`,
 
 user.greet();`,
         correctIndex: 0,
-        textSource: textSources.arrowThis,
+        sources: [textSources.arrowThis],
         options: [
             'Logs "Bob"',
             'Logs undefined',
@@ -289,7 +289,7 @@ user.greet();`,
 
 obj.loop();`,
         correctIndex: 1,
-        textSource: textSources.defaultThis,
+        sources: [textSources.defaultThis],
         options: [
             'Logs "Mea" "Meb" "Mec"',
             'Logs "undefineda" "undefinedb" "undefinedc"',
@@ -312,12 +312,232 @@ obj.loop();`,
 
 new Person('Diana');`,
         correctIndex: 1,
-        textSource: textSources.defaultThis,
+        sources: [textSources.defaultThis],
         options: [
             'Logs "Diana"',
             'Logs undefined',
             'Logs "Person"',
             'Logs the Person instance',
+            'Throws an error'
+        ],
+    },
+
+    {
+        id: 13,
+        prompt: 'What does the following code log in Node.js?',
+        topic: 'js',
+        code: `"use strict"
+
+function here(){
+    console.log(this)
+}
+
+here()`,
+        correctIndex: 2,
+        sources: [textSources.defaultThis],
+        options: [
+            'Logs the global object',
+            'Logs the "here" function',
+            'Logs undefined', 
+            'Logs an empty object',
+            'Logs module.exports'
+        ],
+    },
+    {
+        id: 14,
+        prompt: 'What does the following code log?',
+        topic: 'js',
+        code: `const a = { word: "Hello" };
+const b = { 
+    word: "Hi", 
+    say:function(){
+        console.log(this.word)
+    }
+ };
+
+b.say();
+a.say = b.say;
+a.say();`,
+        correctIndex: 0,
+        sources: [textSources.implicitThis],
+        options: [
+            'Logs "Hi" "Hello"',
+            'Logs "Hello" "Hi"',
+            'Logs "Hi" "Hi"',
+            'Logs "Hello" "Hello"',
+            'Logs undefined twice',
+            'Throws an error'
+        ],
+    },
+
+    {
+        id: 15,
+        prompt: 'What does the following code log?',
+        topic: 'js',
+        code: `const obj = {
+  prop: 'A',
+  method: function() {
+    const arrow = () => this.prop;
+    return arrow();
+  },
+  arrowMethod: () => this.prop
+};
+
+const obj2 = { prop: 'B', method: obj.method, arrowMethod: obj.arrowMethod };
+
+console.log(obj.method());
+console.log(obj2.method());
+console.log(obj.arrowMethod());
+console.log(obj2.arrowMethod());`,
+        correctIndex: 2,
+        sources: [textSources.arrowThis, textSources.implicitThis, textSources.defaultThis],
+        options: [
+            'Logs "A" "B" "A" "B"',
+            'Logs "A" "A" undefined undefined',
+            'Logs "A" "B" undefined undefined',
+            'Logs "B" "B" "B" "B"',
+            'Logs undefined four times',
+            '"A" "A" "A" "A"'
+        ],
+    },
+
+    {
+        id: 16,
+        prompt: 'What does the following code log?',
+        topic: 'js',
+        code: `const object = {
+  value: 'parent',
+  method() {
+    const arrow = () => this.value;
+    const regular = function() { return this.value; };
+    return { arrow, regular };
+  }
+}
+
+const child = { value: 'child' };
+const { arrow, regular } = object.method.call(child);
+
+console.log(arrow());
+console.log(regular());`,
+        correctIndex: 5,
+        sources: [textSources.bind, textSources.arrowThis],
+        options: [
+            'Logs "child" "child"',
+            'Logs "parent" "parent"',
+            'Logs "child" "parent"',
+            'Logs "parent" "child"',
+            'Logs undefined twice',
+            '"child" "undefined"'
+        ],
+    },
+
+    {
+        id: 17,
+        prompt: 'What does the following code log?',
+        topic: 'js',
+        code: `const object = {
+  value: 'object',
+  getThis: () => this,
+  nested: {
+    value: 'nested',
+    getThis() { return this; }
+  }
+};
+
+console.log(object.getThis() === this);
+console.log(object.nested.getThis() === object.nested);
+console.log(object.nested.getThis().value);`,
+        correctIndex: 0,
+        sources: [textSources.defaultThis, textSources.arrowThis, textSources.implicitThis],
+        options: [
+            'Logs "true" "true" "nested"',
+            'Logs "false" "false" "nested"',
+            'Logs "true" "true" "object"',
+            'Logs "false" "true" "nested"',
+            'Logs "true" "false" "object"',
+            'Throws an error'
+        ],
+    },
+
+    {
+        id: 18,
+        prompt: 'What does the following code log?',
+        topic: 'js',
+        code: `'use strict';
+
+const obj = {
+  value: 'obj',
+  outer() {
+    const inner = () => {
+      console.log(this.value);
+    };
+    inner.call({value: 'changed'});
+  }
+};
+
+obj.outer();`,
+        correctIndex: 0,
+        sources: [textSources.arrowThis, textSources.bind],
+        options: [
+            'Logs "obj"',
+            'Logs "changed"',
+            'Logs undefined',
+            'Throws an error'
+        ],
+    },
+
+    {
+        id: 19,
+        prompt: 'What does the following code log?',
+        topic: 'js',
+        code: `const config = {
+  prefix: 'Result:',
+  createLogger() {
+    return {
+      log: (msg) => console.log(this.prefix, msg),
+      logRegular: function(msg) { console.log(this.prefix, msg); }
+    };
+  }
+};
+
+const logger = config.createLogger();
+logger.log('test');
+logger.logRegular('test');`,
+        correctIndex: 2,
+        sources: [textSources.arrowThis, textSources.implicitThis],
+        options: [
+            'Logs "Result: test" "Result: test"',
+            'Logs "undefined test" "Result: test"',
+            'Logs "Result: test" "undefined test"',
+            'Logs "undefined test" "undefined test"',
+            'Throws an error'
+        ],
+    },
+
+    {
+        id: 20,
+        prompt: 'What does the following code log?',
+        topic: 'js',
+        code: `const obj = {
+  value: 'a',
+  method: function() {
+    return () => this.value;
+  }
+};
+
+const getter = obj.method();
+const boundGetter = obj.method.call({value: 'b'});
+
+console.log(getter());
+console.log(boundGetter());`,
+        correctIndex: 1,
+        sources: [textSources.arrowThis, textSources.bind],
+        options: [
+            'Logs "a" "a"',
+            'Logs "a" "b"',
+            'Logs "b" "b"',
+            'Logs "b" "a"',
+            'Logs undefined twice',
             'Throws an error'
         ],
     },

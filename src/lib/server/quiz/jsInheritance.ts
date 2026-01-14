@@ -29,7 +29,7 @@ const dog = new Dog('Buddy');
 dog.speak(); 
 		`,
 		correctIndex: 3,
-		videoSource: videoSources.superKeyword,
+		sources: [videoSources.superKeyword],
         		options: [
 			'Logs "Buddy makes a sound"',
 			'Logs "Buddy barks"',
@@ -62,7 +62,7 @@ class B extends A {
 const b = new B();
 console.log(b.value);`,
 		correctIndex: 1,
-		textSource: textSources.classOrder,
+		sources: [textSources.classOrder],
 		options: [
 			'Logs "A constructor", "B constructor - before super", "B constructor - after super", 1',
 			'Logs "B constructor - before super", "A constructor", "B constructor - after super", 2',
@@ -76,7 +76,7 @@ console.log(b.value);`,
 		id: 3,
 		prompt: 'What does the following code log?',
 		topic: 'js',
-		videoSource: videoSources.constructorFunctionInheritance,
+		sources: [videoSources.constructorFunctionInheritance],
 		code: `function Animal() {
   this.type = 'animal';
 }
@@ -104,7 +104,7 @@ console.log(dog.sound);`,
 	{
 		id: 4,
 		prompt: 'What does the following code log?',
-		videoSource: videoSources.constructorFunctionInheritance,
+		sources: [videoSources.constructorFunctionInheritance],
 		topic: 'js',
 		code: `function A() {}
 A.prototype.x = 10;
@@ -130,7 +130,7 @@ console.log(A.prototype.x);`,
 		id: 5,
 		prompt: 'What does the following code log?',
 		topic: 'js',
-		videoSource: videoSources.constructorFunctionInheritance,
+		sources: [videoSources.constructorFunctionInheritance],
 		code: `const base = { a: 1 };
 const child = Object.create(base);
 child.b = 2;
@@ -155,7 +155,7 @@ console.log(grandchild.b);`,
 	{
 		id: 6,
 		prompt: 'What does the following code log?',
-		textSource: textSources.classOrder,
+		sources: [textSources.classOrder],
 		topic: 'js',
 		code: `class Parent {
   constructor() {
@@ -191,7 +191,7 @@ console.log(c.greet());`,
 		id: 7,
 		prompt: 'What does the following code log?',
 		topic: 'js',
-		textSource: textSources.staticMethods,
+		sources: [textSources.staticMethods],
 		code: `class Base {
   static greet() {
     return 'Hello from Base';
@@ -224,7 +224,7 @@ console.log(d.greet());`,
 		id: 8,
 		prompt: 'What does the following code log?',
 		topic: 'js',
-		videoSource: videoSources.constructorFunctionInheritance,
+		sources: [videoSources.constructorFunctionInheritance],
 		code: `function Animal() {}
 const dog = new Animal();
 
@@ -246,7 +246,7 @@ console.log(dog.speak());`,
 	{
 		id: 9,
 		prompt: 'What does the following code log?',
-		videoSource: videoSources.constructorFunctionInheritance,
+		sources: [videoSources.constructorFunctionInheritance],
 		topic: 'js',
 		code: `function Base() {}
 Base.prototype.say = () => 'base';
@@ -268,7 +268,7 @@ console.log(d.say());`,
 		id: 10,
 		prompt: 'What does the following code log?',
 		topic: 'js',
-		videoSource: videoSources.constructorFunctionInheritance,
+		sources: [videoSources.constructorFunctionInheritance],
 		code: `function Base() {
     this.a = 20;
 }

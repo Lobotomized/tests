@@ -80,11 +80,11 @@
 		{/each}
 	</ol>
 {#if isCorrect === false}
-	{#if q.videoSource || q.textSource}
+	{#each q.sources as src}
 		<div class="m-3">
-		<IncorrectSource src={{ source: (q.videoSource || q.textSource), indices: [q.id - 1] }} />
+		<IncorrectSource src={{ source: src, indices: [q.id - 1] }} />
 		</div>
-	{/if}
+	{/each}
 {/if}
 </section>
 

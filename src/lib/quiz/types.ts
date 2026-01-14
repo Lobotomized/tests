@@ -26,6 +26,5 @@ export type QuestionFull = {
 	topic: string;
 	options: string[];
 	correctIndex: number;
-	videoSource?: VideoSource;
-	textSource?: TextSource;
+	sources: (VideoSource | TextSource)[];
 };
