@@ -530,7 +530,7 @@ Promise.race([
 			'async functions in javascript are a syntactic sugar on top of promises.'
 		],
 		correctIndex: 1,
-		sources: [videoSources.eventLoop]
+		sources: [videoSources.asyncVideo]
 	},
 
 	{
