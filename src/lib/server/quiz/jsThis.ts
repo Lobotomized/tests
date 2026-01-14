@@ -160,7 +160,7 @@ boundFunction.call(obj2, 'Canada');`,
 obj.regularFunc();
 obj.arrowFunc();`,
         correctIndex: 2,
-        sources: [textSources.arrowThis],
+        sources: [textSources.thisInArrowFunctions],
         options: [
             'Logs "Regular: Charlie" "Arrow: Charlie"',
             'Logs "Regular: undefined" "Arrow: undefined"',
@@ -262,7 +262,7 @@ console.log(getValue.apply(obj));`,
 
 user.greet();`,
         correctIndex: 0,
-        sources: [textSources.arrowThis],
+        sources: [textSources.thisInArrowFunctions],
         options: [
             'Logs "Bob"',
             'Logs undefined',
@@ -390,7 +390,7 @@ console.log(obj2.method());
 console.log(obj.arrowMethod());
 console.log(obj2.arrowMethod());`,
         correctIndex: 2,
-        sources: [textSources.arrowThis, textSources.implicitThis, textSources.defaultThis],
+        sources: [textSources.thisInArrowFunctions, textSources.implicitThis, textSources.defaultThis],
         options: [
             'Logs "A" "B" "A" "B"',
             'Logs "A" "A" undefined undefined',
@@ -420,7 +420,7 @@ const { arrow, regular } = object.method.call(child);
 console.log(arrow());
 console.log(regular());`,
         correctIndex: 5,
-        sources: [textSources.bind, textSources.arrowThis],
+        sources: [textSources.bind, textSources.thisInArrowFunctions],
         options: [
             'Logs "child" "child"',
             'Logs "parent" "parent"',
@@ -448,7 +448,7 @@ console.log(object.getThis() === this);
 console.log(object.nested.getThis() === object.nested);
 console.log(object.nested.getThis().value);`,
         correctIndex: 0,
-        sources: [textSources.defaultThis, textSources.arrowThis, textSources.implicitThis],
+        sources: [textSources.defaultThis, textSources.thisInArrowFunctions, textSources.implicitThis],
         options: [
             'Logs "true" "true" "nested"',
             'Logs "false" "false" "nested"',
@@ -477,7 +477,7 @@ const obj = {
 
 obj.outer();`,
         correctIndex: 0,
-        sources: [textSources.arrowThis, textSources.bind],
+        sources: [textSources.thisInArrowFunctions, textSources.bind],
         options: [
             'Logs "obj"',
             'Logs "changed"',
@@ -504,7 +504,7 @@ const logger = config.createLogger();
 logger.log('test');
 logger.logRegular('test');`,
         correctIndex: 2,
-        sources: [textSources.arrowThis, textSources.implicitThis],
+        sources: [textSources.thisInArrowFunctions, textSources.implicitThis],
         options: [
             'Logs "Result: test" "Result: test"',
             'Logs "undefined test" "Result: test"',
@@ -531,7 +531,7 @@ const boundGetter = obj.method.call({value: 'b'});
 console.log(getter());
 console.log(boundGetter());`,
         correctIndex: 1,
-        sources: [textSources.arrowThis, textSources.bind],
+        sources: [textSources.thisInArrowFunctions, textSources.bind],
         options: [
             'Logs "a" "a"',
             'Logs "a" "b"',

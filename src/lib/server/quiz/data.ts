@@ -29,21 +29,12 @@ export function grade(selections: number[], topic: string) {
 				if (!sourceMap.has(key)) {
 					sourceMap.set(key, { source: src, indices: [] });
 				}
-				if(selections[i] !== q.correctIndex){
+				if (selections[i] !== q.correctIndex) {
 					sourceMap.get(key)!.indices.push(i);
 				}
 			});
-			// if (correct[i]) return;
-			// const src = q.videoSource || q.textSource;
-			// if (!src) return;
-			// const key = "url" in src ? src.url : src.text;
-			// if (!sourceMap.has(key)) {
-			// 	sourceMap.set(key, { source: src, indices: [] });
-			// }
-			// sourceMap.get(key)!.indices.push(i);
 		});
-		return Array.from(sourceMap.values());
+		return Array.from(sourceMap.values()).filter((entry) => entry.indices.length > 0);
 	})();
-	console.log(incorrectSources)
 	return { score, total: questions.length, correct, correctIndices, sources: incorrectSources };
 }
