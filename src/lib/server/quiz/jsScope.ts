@@ -119,7 +119,7 @@ mystery();`,
 			'ReferenceError',
             '"10" ReferenceError'
 		],
-		correctIndex: 3,
+		correctIndex: 4,
 		sources: [textSources.scope]
 	},
 {
@@ -255,7 +255,7 @@ function bar() { return 2; }`,
 		'TypeError',
 		'undefined undefined'
 	],
-	correctIndex: 2,
+	correctIndex: 3,
 	sources: [textSources.jsHoisting]
 },
 
