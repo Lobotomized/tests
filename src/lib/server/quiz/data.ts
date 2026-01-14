@@ -25,12 +25,13 @@ export function grade(selections: number[], topic: string) {
 		const sourceMap = new Map<string, { source: VideoSource | TextSource; indices: number[] }>();
 		questions.forEach((q, i) => {
 			q.sources.forEach((src) => {
-				console.log(src)
 				const key = "url" in src ? src.url : src.text;
 				if (!sourceMap.has(key)) {
 					sourceMap.set(key, { source: src, indices: [] });
 				}
-				sourceMap.get(key)!.indices.push(i);
+				if(selections[i] !== q.correctIndex){
+					sourceMap.get(key)!.indices.push(i);
+				}
 			});
 			// if (correct[i]) return;
 			// const src = q.videoSource || q.textSource;
@@ -43,6 +44,6 @@ export function grade(selections: number[], topic: string) {
 		});
 		return Array.from(sourceMap.values());
 	})();
-
+	console.log(incorrectSources)
 	return { score, total: questions.length, correct, correctIndices, sources: incorrectSources };
 }
