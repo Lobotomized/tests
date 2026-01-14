@@ -289,6 +289,284 @@ console.log(b)`,
 			'Throws an error'
 		],
 	},
+
+	{
+		id: 11,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		sources: [videoSources.constructorFunctionInheritance],
+		code: `function Base() {}
+console.log(Base.prototype.constructor === Base)`,
+		correctIndex: 0,
+		options: [
+			'Logs true',
+			'Logs false',
+			'Logs undefined',
+			'Throws an error',
+			'Logs nothing'
+		],
+	},
+	{
+		id: 12,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		sources: [videoSources.constructorFunctionInheritance],
+		code: `let k = [];
+
+k.__proto__.__proto__.test  = function(){
+    console.log('hi', this)
+}
+
+'hi'.test()`,
+		correctIndex: 1,
+		options: [
+			'Logs "hi undefined"',
+			'Logs "hi [String: \'hi\']"',
+			'Throws an error',
+			'Logs nothing'
+		],
+	},
+
+	{
+		id: 13,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		sources: [videoSources.constructorFunctionInheritance],
+		code: `let a = {
+    a:5,
+    b:10,
+    r:{
+        c:30
+    }
+}
+let b = {
+    a:5,
+    b:10,
+    __proto__: {
+        c:20
+    }
+}
+console.log(a)
+console.log(b)
+console.log(a.c)
+console.log(b.c)`,
+		correctIndex: 1,
+		options: [
+			'Logs "{ a: 5, b: 10, r: { c: 30 } }", "{ a: 5, b: 10 }", "30", "20"',
+			'Logs "{ a: 5, b: 10, r: { c: 30 } }", "{ a: 5, b: 10 }", "undefined", "20"',
+			'Logs "{ a: 5, b: 10, r: { c: 30 } }", "{ a: 5, b: 10, __proto__: { c: 20 } }", "undefined", "20"',
+			'Logs "{ a: 5, b: 10, r: { c: 30 } }", "{ a: 5, b: 10 }", "30", "undefined"',
+			'Logs "{ a: 5, b: 10, r: { c: 30 } }", "{ a: 5, b: 10 }", "undefined", "undefined"'
+		],
+	},
+
+	{
+		id: 14,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		sources: [videoSources.constructorFunctionInheritance],
+		code: `let k = {
+    a:5
+}
+
+let b = {
+    c:20
+}
+
+let r = {
+    c:25
+}
+
+b.__proto__ = k;
+r.__proto__ = k;
+
+console.log(b.a, r.a)`,
+		correctIndex: 3,
+		options: [
+			'Logs "undefined undefined"',
+			'Logs "5 undefined"',
+			'Logs "undefined 5"',
+			'Logs "5 5"',
+			'Throws an error'
+		],
+	},
+
+
+	{
+		id: 15,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		sources: [videoSources.superKeyword],
+		code: `class Test{
+    constructor(){
+        this.a = 5;
+    }
+}
+
+let testImpl = new Test();
+let test2Impl = new Test();
+
+let k = {
+    a:20
+}
+k.__proto__ = testImpl.__proto__
+
+console.log(testImpl.a, k.a)
+console.log(test2Impl.__proto__ === k.__proto__)`,
+		correctIndex: 1,
+		options: [
+			'Logs "5 5" and true',
+			'Logs "5 20" and true',
+			'Logs "5 5" and false',
+			'Logs "5 20" and false',
+			'Throws an error'
+		],
+	},
+
+	{
+		id: 16,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		sources: [videoSources.superKeyword],
+		code: `function Test(){
+    this.a = 20;
+}
+
+class TestTest extends Test{
+    constructor(){
+        super()
+    }
+}
+
+let a = new Test();
+let b = new TestTest();
+
+console.log(a.__proto__ ===b.__proto__)`,
+		correctIndex: 2,
+		options: [
+			'Logs undefined',
+			'Logs true',
+			'Logs false',
+			'Throws an error',
+			'Logs nothing'
+		],
+	},
+
+	{
+		id: 17,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		sources: [textSources.whatHasProto],
+		code: `console.log(null.__proto__)`,
+		correctIndex: 2,
+		options: [
+			'Logs null',
+			'Logs undefined',
+			'Throws an error',
+			'Logs {}',
+			'Logs nothing'
+		],
+	},
+
+	{
+		id: 18,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		sources: [videoSources.constructorFunctionInheritance],
+		code: `let k = {
+    a:5
+}
+
+let b = {
+    c:20
+}
+
+let r = {
+    c:25
+}
+
+b.__proto__ = k;
+r.__proto__ = k;
+
+console.log(b.a, r.a)`,
+		correctIndex: 3,
+		options: [
+			'Logs "undefined undefined"',
+			'Logs "5 undefined"',
+			'Logs "undefined 5"',
+			'Logs "5 5"',
+			'Throws an error'
+		],
+	},
+
+	{
+		id: 19,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		sources: [videoSources.constructorFunctionInheritance],
+		code: `function Test(){
+    this.a = 20;
+}
+
+class TestTest extends Test{
+    constructor(){
+        super()
+    }
+}
+
+let a = new Test();
+let b = new TestTest();
+
+console.log(a.__proto__ === b.__proto__)`,
+		correctIndex: 2,
+		options: [
+			'Logs undefined',
+			'Logs true',
+			'Logs false',
+			'Throws an error',
+			'Logs nothing'
+		],
+	},
+
+	{
+		id: 20,
+		prompt: 'What does the following code log?',
+		topic: 'js',
+		sources: [videoSources.superKeyword],
+		code: `class Mammal {
+  constructor(){
+    
+  }
+  fur() {
+    console.log("Warmness")
+  }
+}
+
+class Human extends Mammal {
+  constructor(){
+    super();
+    this.govori = function(){
+      console.log("Bla bla bla")
+    }
+  }
+}
+
+let mouse = new Mammal();
+let Alexander = new Human();
+let Ivan = new Human();
+console.log(mouse.fur === Ivan.fur)
+console.log(Alexander.fur === Ivan.fur)
+console.log(Ivan.govori === mouse.govori)
+console.log(Alexander.govori === Ivan.govori)`,
+		correctIndex: 2,
+		options: [
+			'Logs "true", "true", "true", "true"',
+			'Logs "false", "false", "false", "false"',
+			'Logs "true", "true", "false", "false"',
+			'Logs "true", "true", "false", "true"',
+			'Logs "false", "false", "true", "true"'
+		],
+	},
 ];
 
 export default questions;

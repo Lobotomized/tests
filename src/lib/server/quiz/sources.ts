@@ -160,5 +160,13 @@ export const textSources: TextSources = {
 			Any function passed as the setImmediate() argument is a callback that's executed in the next iteration of the event loop.
 		`,
 		title: 'process.nextTick() and setImmediate()'
+	},
+	whatHasProto: {
+		text: `
+In JavaScript, primitive values (strings, numbers, booleans, null, undefined, symbols, bigints) don't inherently have 
+the __proto__ property because it's an accessor on Object.prototype, but they get temporary wrapper objects with prototypes when accessed, 
+except for null and undefined which have no prototype no __proto__ property
+		`,
+		title: 'What has "__proto__" property?'
 	}
 };
