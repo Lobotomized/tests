@@ -89,6 +89,11 @@
 </section>
 
 <style>
+	code[class*="language-"],
+	pre[class*="language-"] {
+		white-space: pre-wrap !important;
+		word-break: break-word !important; /* Ensures long, unbroken strings wrap */
+	}
 	.option{
 		cursor: pointer;
 	}
