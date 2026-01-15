@@ -1,11 +1,18 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { topics } from './topics';
+	import jsIcon from '$lib/assets/jsIcon.png'
 </script>
 
 <div class="links-container">
 	<h2 class="links-title">Explore JavaScript Topics</h2>
 	<ul class="links-list">
+		<li class="link-item">
+			<a href={resolve('/jsMixed')} data-sveltekit-preload-data="tap" class="link-card">
+				<img class="link-icon" src={jsIcon} alt="JavaScript" style="width: 2rem; height: 2rem;" />
+				<span class="link-text">{topics.jsMixed}</span>
+			</a>
+		</li>
 		<li class="link-item">
 			<a href={resolve('/jsAsync')} data-sveltekit-preload-data="tap" class="link-card">
 				<span class="link-icon">⏱️</span>

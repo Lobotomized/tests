@@ -18,8 +18,26 @@ export function getQuestions(topic: string) {
 	return questionsObject[topic];
 }
 
-export function grade(selections: number[], topic: string) {
-	const questions = questionsObject[topic];
+export function getMixedJsQuestions() {
+	const getRandom = (arr: QuestionFull[], n: number) => {
+		const shuffled = [...arr].sort(() => 0.5 - Math.random());
+		return shuffled.slice(0, n);
+	};
+
+	const perCategory = 5;
+	const selected = [
+		...getRandom(jsAsync, perCategory),
+		...getRandom(jsInheritance, perCategory),
+		...getRandom(jsScope, perCategory),
+		...getRandom(jsThis, perCategory),
+		...getRandom(jsExpressions, perCategory),
+	];
+
+	return selected.sort(() => 0.5 - Math.random());
+}
+
+export function grade(selections: number[], topic: string | QuestionFull[]) {
+	const questions = Array.isArray(topic) ? topic : questionsObject[topic];
 	const correct = questions.map((q, i) => selections[i] === q.correctIndex);
 	const score = correct.filter(Boolean).length;
 	const correctIndices = questions.map((q) => q.correctIndex);

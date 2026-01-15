@@ -2,7 +2,8 @@
 	import QuestionCard from '$lib/components/QuestionCard.svelte';
 	import type { QuestionPublic, GradeResult } from '$lib/quiz/types';
 	import type { TextSource, VideoSource } from '$lib/server/quiz/sources.js';
-
+	import mixedTopicsSet from '$lib/mixedTopicsSet.js';
+		
 	import { onMount } from 'svelte';
 	import { topics } from '../topics.js';
 	import IncorrectSources from '$lib/components/IncorrectSources.svelte';
@@ -38,7 +39,7 @@
 		const res = await fetch('/api/grade', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ selections, topic })
+			body: JSON.stringify({ selections, topic:mixedTopicsSet.has(topic) ? questions : topic })
 		});
 		nextQuestion();
 		loading = false;
