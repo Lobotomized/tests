@@ -3,9 +3,9 @@
 	import { topics } from './topics';
 	import jsIcon from '$lib/assets/jsIcon.png'
 </script>
-
 <div class="links-container">
-	<h2 class="links-title">Explore JavaScript Topics</h2>
+	<h2 class="links-title">Test your JS knowledge</h2>
+	<p class="links-description">Test your knowledge and get exactly the materials you need to fill your gaps</p>
 	<ul class="links-list">
 		<li class="link-item">
 			<a href={resolve('/jsMixed')} data-sveltekit-preload-data="tap" class="link-card">
@@ -61,8 +61,15 @@
 		text-align: center;
 		color: #2d3748;
 		font-size: 1.75rem;
-		margin-bottom: 1.5rem;
+		margin-bottom: 0.5rem;
 		font-weight: 600;
+	}
+
+	.links-description {
+		text-align: center;
+		color: #4a5568;
+		font-size: 1rem;
+		margin-bottom: 1.5rem;
 	}
 
 	.links-list {
