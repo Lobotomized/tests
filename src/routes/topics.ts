@@ -4,5 +4,7 @@ export const topics: Record<string, string> = {
     jsThis: 'Javascript "this" keyword',
     jsScope: 'Javascript Scope, Closures and Hoisting',
     jsExpressions: 'Javascript Expressions',
-    jsMixed: 'Random questions form all JS topics'
+    jsMixedQuick: '5 random questions from all JS topics',
+    jsMixedMid: '10 random questions from all JS topics',
+    jsMixed: '25 Random questions form all JS topics'
 }

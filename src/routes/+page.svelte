@@ -14,6 +14,18 @@
 			</a>
 		</li>
 		<li class="link-item">
+			<a href={resolve('/jsMixedMid')} data-sveltekit-preload-data="tap" class="link-card">
+				<img class="link-icon" src={jsIcon} alt="JavaScript" style="width: 2rem; height: 2rem;" />
+				<span class="link-text">{topics.jsMixedMid}</span>
+			</a>
+		</li>
+		<li class="link-item">
+			<a href={resolve('/jsMixedQuick')} data-sveltekit-preload-data="tap" class="link-card">
+				<img class="link-icon" src={jsIcon} alt="JavaScript" style="width: 2rem; height: 2rem;" />
+				<span class="link-text">{topics.jsMixedQuick}</span>
+			</a>
+		</li>
+		<li class="link-item">
 			<a href={resolve('/jsAsync')} data-sveltekit-preload-data="tap" class="link-card">
 				<span class="link-icon">⏱️</span>
 				<span class="link-text">{topics.jsAsync}</span>

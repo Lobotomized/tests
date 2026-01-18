@@ -18,13 +18,24 @@ export function getQuestions(topic: string) {
 	return questionsObject[topic];
 }
 
-export function getMixedJsQuestions() {
+export function getMixedJsQuestionsQuick(){
+	return getMixedJsQuestions(1);
+}
+export function getMixedJsQuestionsMid(){
+	return getMixedJsQuestions(2);
+}
+
+export function getMixedJsQuestionsFull(){
+	return getMixedJsQuestions(5);
+}
+
+export function getMixedJsQuestions(questionsPerCategory:number) {
 	const getRandom = (arr: QuestionFull[], n: number) => {
 		const shuffled = [...arr].sort(() => 0.5 - Math.random());
 		return shuffled.slice(0, n);
 	};
 
-	const perCategory = 5;
+	const perCategory = questionsPerCategory;
 	const selected = [
 		...getRandom(jsAsync, perCategory),
 		...getRandom(jsInheritance, perCategory),
