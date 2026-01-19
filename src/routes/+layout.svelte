@@ -1,7 +1,10 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.ico';
-
+	import { injectAnalytics } from '@vercel/analytics/sveltekit'
+	
+	injectAnalytics();
+	
 	let { children } = $props();
 </script>
 
