@@ -541,6 +541,33 @@ console.log(boundGetter());`,
             'Throws an error'
         ],
     },
+    {
+        id: 21,
+        prompt: 'What does the following code log?',
+        topic: 'js',
+        code: `const t = {
+  i: 5,
+  a: function () {
+    return () => {
+      console.log(this.i);
+    };
+  }
+};
+const b = { i: 30 };
+const c = { i: 25 };
+
+b.a = t.a();
+b.a.call(c);`,
+        correctIndex: 3,
+        sources: [textSources.thisInArrowFunctions],
+        options: [
+            'Logs 30 25',
+            'Logs 30 5',
+            'Logs 25 5',
+            'Logs 5 5',
+            'Logs 30 30'
+        ],
+    },
 ];
 
 export default questions;

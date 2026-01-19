@@ -279,8 +279,9 @@ export const textSources: TextSources = {
 
 	thisInArrowFunctions: {
 		text: `
-			Arrow functions do not have their own "this" keyword.
-			Instead, they inherit the "this" from one level above them.
+			Arrow functions do not have their own "this" keyword.<br/>
+			Instead, they inherit the "this" from one level above them and remember it after that, no matter the way in which they were called. 
+			Even if explicitly rebounded with bind/apply/call.
 		`,
 		title: '"this" binding in arrow functions'
 	},
