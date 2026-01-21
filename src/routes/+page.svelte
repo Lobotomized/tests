@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import TopicLi from '$lib/components/TopicLi.svelte';
 	import { topics } from './topics';
 	import jsIcon from '$lib/assets/jsIcon.png'
 </script>
@@ -7,54 +8,12 @@
 	<h2 class="links-title">Test your JS knowledge</h2>
 	<p class="links-description">Test your knowledge and get exactly the materials you need to fill your gaps</p>
 	<ul class="links-list">
-		<li class="link-item">
-			<a href={resolve('/jsMixed')} data-sveltekit-preload-data="tap" class="link-card">
-				<img class="link-icon" src={jsIcon} alt="JavaScript" style="width: 2rem; height: 2rem;" />
-				<span class="link-text">{topics.jsMixed}</span>
-			</a>
-		</li>
-		<li class="link-item">
-			<a href={resolve('/jsMixedMid')} data-sveltekit-preload-data="tap" class="link-card">
-				<img class="link-icon" src={jsIcon} alt="JavaScript" style="width: 2rem; height: 2rem;" />
-				<span class="link-text">{topics.jsMixedMid}</span>
-			</a>
-		</li>
-		<li class="link-item">
-			<a href={resolve('/jsMixedQuick')} data-sveltekit-preload-data="tap" class="link-card">
-				<img class="link-icon" src={jsIcon} alt="JavaScript" style="width: 2rem; height: 2rem;" />
-				<span class="link-text">{topics.jsMixedQuick}</span>
-			</a>
-		</li>
-		<li class="link-item">
-			<a href={resolve('/jsAsync')} data-sveltekit-preload-data="tap" class="link-card">
-				<span class="link-icon">⏱️</span>
-				<span class="link-text">{topics.jsAsync}</span>
-			</a>	
-		</li>
-		<li class="link-item">
-			<a href={resolve('/jsInheritance')} data-sveltekit-preload-data="tap" class="link-card">
-				<span class="link-icon">👨‍👩‍👧‍👦</span>
-				<span class="link-text">{topics.jsInheritance}</span>
-			</a>
-		</li>
-		<li class="link-item">
-			<a href={resolve('/jsThis')} data-sveltekit-preload-data="tap" class="link-card">
-				<span class="link-icon">🫵</span>
-				<span class="link-text">{topics.jsThis}</span>
-			</a>
-		</li>
-		<li class="link-item">
-			<a href={resolve('/jsScope')} data-sveltekit-preload-data="tap" class="link-card">
-				<span class="link-icon">🔍</span>
-				<span class="link-text">{topics.jsScope}</span>
-			</a>
-		</li>
-		<li class="link-item">
-			<a href={resolve('/jsExpressions')} data-sveltekit-preload-data="tap" class="link-card">
-				<span class="link-icon">🧮</span>
-				<span class="link-text">{topics.jsExpressions}</span>
-			</a>
-		</li>
+		<TopicLi topic={topics.jsMixed} link={'/jsMixed'} fullQuestions={25} iconSrc={jsIcon} ></TopicLi>
+		<TopicLi topic={topics.jsAsync} link={'/jsAsync'} icon="⏱️" ></TopicLi>
+		<TopicLi topic={topics.jsInheritance} link={'/jsInheritance'} icon="👨‍👩‍👧‍👦" ></TopicLi>
+		<TopicLi topic={topics.jsThis} link={'/jsThis'} icon="🫵" ></TopicLi>
+		<TopicLi topic={topics.jsScope} link={'/jsScope'} icon="🔍" ></TopicLi>
+		<TopicLi topic={topics.jsExpressions} link={'/jsExpressions'} icon="🧮" ></TopicLi>
 	</ul>
 </div>
 
