@@ -163,9 +163,9 @@ obj.arrowFunc();`,
         sources: [textSources.thisInArrowFunctions],
         options: [
             'Logs "Regular: Charlie" "Arrow: Charlie"',
-            'Logs "Regular: undefined" "Arrow: undefined"',
-            'Logs "Regular: Charlie" "Arrow: undefined"',
-            'Logs "Regular: undefined" "Arrow: Charlie"',
+            'Logs "Regular: " "Arrow: "',
+            'Logs "Regular: Charlie" "Arrow: "',
+            'Logs "Regular: " "Arrow: Charlie"',
             'Throws an error'
         ],
     },
