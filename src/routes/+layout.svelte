@@ -1,7 +1,7 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.ico';
-	import og from '$lib/assets/og.png';
+	import og from '$lib/assets/og.jpeg';
 	import { injectAnalytics } from '@vercel/analytics/sveltekit'
 	
 	injectAnalytics();
