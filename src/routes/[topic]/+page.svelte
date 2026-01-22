@@ -3,7 +3,8 @@
 	import type { QuestionPublic, GradeResult } from '$lib/quiz/types';
 	import type { TextSource, VideoSource } from '$lib/server/quiz/sources.js';
 	import mixedTopicsSet from '$lib/mixedTopicsSet.js';
-		
+	import { resolve } from '$app/paths';
+
 	import { onMount } from 'svelte';
 	import { topics } from '../topics.js';
 	import IncorrectSources from '$lib/components/IncorrectSources.svelte';
@@ -130,6 +131,7 @@
 			{:else}
 					{#if  currentIndex > questions.length-1}
 						<button onclick={checkMistakes} disabled={currentIndex === 0}>Go back to check your mistakes</button>
+						<a href={resolve('/')}>Do one more test</a>
 					{:else}
 						<button onclick={prevQuestion} disabled={currentIndex === 0}>Previous</button>
 					{/if}
@@ -266,7 +268,7 @@
 		gap: 0.5rem;
 		margin: 0.5rem 0 1rem 0;
 	}
-	button {
+	button, a {
 		padding: 0.6rem 0.9rem;
 		border: 1px solid transparent;
 		border-radius: 8px;
@@ -277,16 +279,18 @@
 			background-color 120ms ease,
 			box-shadow 120ms ease,
 			opacity 120ms ease;
+		text-decoration: none;
+		display: inline-block;
 	}
-	button:hover:not(:disabled) {
+	button:hover:not(:disabled), a:hover:not(:disabled) {
 		filter: brightness(1.05);
 		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 	}
-	button:focus-visible {
+	button:focus-visible, a:focus-visible {
 		outline: 3px solid rgba(15, 118, 110, 0.35);
 		outline-offset: 2px;
 	}
-	button:disabled {
+	button:disabled, a:disabled {
 		opacity: 0.55;
 		background: #f3f4f6;
 		color: inherit;

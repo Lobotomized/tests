@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { goto } from '$app/navigation';
-	import { fade, slide } from 'svelte/transition';
+	import {  slide } from 'svelte/transition';
     import { clickoutside } from '@svelte-put/clickoutside';
 
 	let {
