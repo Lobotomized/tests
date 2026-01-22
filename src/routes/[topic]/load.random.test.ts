@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { load } from './+page.server';
 import { grade } from '$lib/server/quiz/data';
+import type { QuestionFull } from '$lib/quiz/types';
 
 function makeUrl(topic: string, n: number) {
   return new URL(`http://localhost/${topic}?questionsNumber=${n}`);
@@ -35,5 +36,44 @@ describe('[topic]/+page.server load random questions', () => {
       expect(result.score).toBe(n);
       expect(result.correct.every((c) => c)).toBe(true);
     }
+  });
+
+  it('grade: manually generated questions have correct correctIndex', () => {
+    const n = 10;
+    const questions:QuestionFull[] = Array.from({ length: n }, (_, i) => ({
+      id: i,
+      prompt: "hi",
+      sources:[],
+      topic: "test",
+      options: [`a${i}`, `b${i}`, `c${i}`, `d${i}`],
+      correctIndex: Math.floor(Math.random() * 4),
+    }));
+
+    const selections = questions.map((q) => q.correctIndex);
+    const result = grade(selections, questions);
+   
+    expect(result.total).toBe(n);
+    expect(result.score).toBe(n);
+    expect(result.correct.every((c) => c)).toBe(true);
+  });
+
+  it('grade: shuffled questions with id-based selections evaluate correctly', () => {
+    const n = 12;
+    const original:QuestionFull[] = Array.from({ length: n }, (_, i) => ({
+      id: i,
+      prompt: `q${i}`,
+      sources:[],
+      topic: "mix",
+      options: [`a${i}`, `b${i}`, `c${i}`, `d${i}`],
+      correctIndex: Math.floor(Math.random() * 4),
+    }));
+    const byId = new Map<number, number>(original.map(q => [q.id, q.correctIndex]));
+    const shuffled = [...original].sort(() => Math.random() - 0.5);
+    const selections = shuffled.map(q => byId.get(q.id)!);
+    const result = grade(selections, shuffled);
+    expect(result.total).toBe(n);
+    expect(result.score).toBe(n);
+    expect(result.correct.every(Boolean)).toBe(true);
+    expect(result.correctIndices).toEqual(shuffled.map(q => q.correctIndex));
   });
 });
