@@ -1,6 +1,7 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.ico';
+	import og from '$lib/assets/og.png';
 	import { injectAnalytics } from '@vercel/analytics/sveltekit'
 	
 	injectAnalytics();
@@ -10,6 +11,8 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<meta property="og:image" content={og} />
+	<title>Find my developer weakness</title>
 	<style>
 		::-webkit-scrollbar {
 			display: none;
