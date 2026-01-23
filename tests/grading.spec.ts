@@ -309,7 +309,7 @@ const questions: QuestionFull[] = [
 for (let run = 0; run < 20; run++) {
   test.describe('Frontend code matches question list correctIndex' + run, () => {
     test('correct answer matches correctIndex for each question', async ({ page }) => {
-      await page.goto('/jsExpressions?questionsNumber=5');
+      await page.goto('/jsExpressions?questionsNumber='+run);
 
       for (;;) {
         const codeText = (await page.locator('pre code').textContent())?.trim() || '';

@@ -40,7 +40,7 @@
 		const res = await fetch('/api/grade', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ selections, topic:mixedTopicsSet.has(topic) ? questions : topic })
+			body: JSON.stringify({ selections, topic:questions })
 		});
 		nextQuestion();
 		loading = false;
@@ -102,6 +102,7 @@
 			<p class="error">{error}</p>
 		{/if}
 		{#if currentIndex < questions.length}
+			
 			<div class="question">
 				<QuestionCard
 					q={questions[currentIndex]}
