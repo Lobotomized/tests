@@ -76,4 +76,18 @@ describe('[topic]/+page.server load random questions', () => {
     expect(result.correct.every(Boolean)).toBe(true);
     expect(result.correctIndices).toEqual(shuffled.map(q => q.correctIndex));
   });
+
+
+  it('jsExpressions: specific question always has correctIndex 1', () => {
+    const topic = 'jsExpressions';
+    const n = 50;
+
+    for (let i = 0; i < 100; i++) {
+      const { questions } = load({ params: { topic }, url: makeUrl(topic, n) });
+      const found = questions.find(q => q?.code?.includes('0 && "" && 2'));
+      if (found) {
+        expect(found.correctIndex).toBe(1);
+      }
+    }
+  });
 });
