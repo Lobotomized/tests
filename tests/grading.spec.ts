@@ -306,42 +306,44 @@ const questions: QuestionFull[] = [
     },
 ];
 
-test.describe('Frontend code matches question list correctIndex', () => {
-  test('correct answer matches correctIndex for each question', async ({ page }) => {
-    await page.goto('/jsExpressions?questionsNumber=20');
+for (let run = 0; run < 20; run++) {
+  test.describe('Frontend code matches question list correctIndex' + run, () => {
+    test('correct answer matches correctIndex for each question', async ({ page }) => {
+      await page.goto('/jsExpressions?questionsNumber=5');
 
-    for (;;) {
-      const codeText = (await page.locator('pre code').textContent())?.trim() || '';
-      const question = questions.find((q) => (q.code || '').trim() === codeText);
-      expect(question).toBeTruthy();
-      const options = page.locator('ol.options label.option input.option-input');
-      await options.nth(question!.correctIndex).check();
-      const nextBtn = page.getByRole('button', { name: 'Next' });
-      if (await nextBtn.isVisible()) { await nextBtn.click(); continue; }
-      const summaryBtn = page.getByRole('button', { name: 'Summary' });
-      if (await summaryBtn.isVisible()) { await summaryBtn.click(); break; }
-      break;
-    }
+      for (;;) {
+        const codeText = (await page.locator('pre code').textContent())?.trim() || '';
+        const question = questions.find((q) => (q.code || '').trim() === codeText);
+        expect(question).toBeTruthy();
+        const options = page.locator('ol.options label.option input.option-input');
+        await options.nth(question!.correctIndex).check();
+        const nextBtn = page.getByRole('button', { name: 'Next' });
+        if (await nextBtn.isVisible()) { await nextBtn.click(); continue; }
+        const summaryBtn = page.getByRole('button', { name: 'Summary' });
+        if (await summaryBtn.isVisible()) { await summaryBtn.click(); break; }
+        break;
+      }
 
-    const submitBtn = page.getByRole('button', { name: 'Submit Quiz' });
-    await expect(submitBtn).toBeEnabled();
-    await submitBtn.click();
+      const submitBtn = page.getByRole('button', { name: 'Submit Quiz' });
+      await expect(submitBtn).toBeEnabled();
+      await submitBtn.click();
 
-    const backBtn = page.getByRole('button', { name: 'Go back to check your mistakes' });
-    await expect(backBtn).toBeVisible();
-    await backBtn.click();
+      const backBtn = page.getByRole('button', { name: 'Go back to check your mistakes' });
+      await expect(backBtn).toBeVisible();
+      await backBtn.click();
 
-    for (;;) {
-      const statusText = await page.locator('p.status').textContent();
-      expect(statusText).toContain('Correct');
-      const nextBtn = page.getByRole('button', { name: 'Next' });
-      if (await nextBtn.isVisible()) { await nextBtn.click(); continue; }
-      const summaryBtn = page.getByRole('button', { name: 'Summary' });
-      if (await summaryBtn.isVisible()) { break; }
-      break;
-    }
+      for (;;) {
+        const statusText = await page.locator('p.status').textContent();
+        expect(statusText).toContain('Correct');
+        const nextBtn = page.getByRole('button', { name: 'Next' });
+        if (await nextBtn.isVisible()) { await nextBtn.click(); continue; }
+        const summaryBtn = page.getByRole('button', { name: 'Summary' });
+        if (await summaryBtn.isVisible()) { break; }
+        break;
+      }
+    });
   });
-});
+}
 
 test.describe('Grading UI', () => {
   test('incorrect selections are never shown as correct', async ({ page }) => {
