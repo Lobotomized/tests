@@ -202,7 +202,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(<Outer />)
 		],
 	},
 	{
-		id: 4,
+		id: 5,
 		prompt: 'What does the following code log?',
 		topic: 'react',
 		code: `import React, { useState, useEffect, useLayoutEffect } from 'react'
