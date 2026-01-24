@@ -152,6 +152,112 @@ ReactDOM.createRoot(document.getElementById('root')).render(<Outer />)
 			'Logs "Outer 3", "Middle", "Inner", "Outer 0", "Outer 2", "Outer 1"',
 			'Logs "Middle", "Outer 3", "Inner", "Outer 0", "Outer 2", "Outer 1"'
 		],
+	},
+	{
+		id: 4,
+		prompt: 'What does the following code log?',
+		topic: 'react',
+		code: `
+import React, { useState, useEffect, useLayoutEffect } from 'react'
+import ReactDOM from 'react-dom/client'
+
+function Inner({ setCounter }) {
+	useEffect(() => {
+		console.log('Inner');
+    setCounter(5);
+	}, []);
+
+	return null;
+}
+
+function Middle({ setCounter }) {
+  useEffect(() => {
+    console.log('Middle');
+    setCounter(10);
+  }, [])
+	return <Inner setCounter={setCounter} />;
+}
+
+function Outer() {
+  const [counter, setCounter] = useState(0);
+	useEffect(() => {
+		console.log('Outer ' + counter);
+	}, [counter]);
+  
+	return <Middle setCounter={setCounter} />;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Outer />)
+`,
+
+		correctIndex: 0,
+		sources: [textSources.useEffect],
+		options: [
+			'Logs "Inner", "Middle", "Outer 0", "Outer 10"',
+			'Logs "Outer 0", "Middle", "Inner", "Outer 10"',
+			'Logs "Middle", "Outer 0", "Inner", "Outer 10"',
+			'Logs "Inner", "Outer 0", "Middle", "Outer 10"',
+			'Logs "Inner", "Middle", "Outer 0", "Inner", "Middle", "Outer 10"',
+			'Logs "Inner", "Middle", "Outer 10"',
+		],
+	},
+	{
+		id: 4,
+		prompt: 'What does the following code log?',
+		topic: 'react',
+		code: `import React, { useState, useEffect, useLayoutEffect } from 'react'
+import ReactDOM from 'react-dom/client'
+
+function Inner({ setCounter }) {
+	useEffect(() => {
+		console.log('Inner');
+    setCounter(5);
+    return () => {
+      console.log('Inner Cleanup')
+    }
+	}, []);
+
+	return null;
+}
+
+function Middle({ setCounter }) {
+  useEffect(() => {
+    console.log('Middle');
+    setCounter(10);
+    return () => {
+      console.log('Middle Cleanup')
+    }
+  }, [])
+	return <Inner setCounter={setCounter} />;
+}
+
+function Outer() {
+  const [counter, setCounter] = useState(0);
+	useEffect(() => {
+		console.log('Outer ' + counter);
+
+    return () => {
+      console.log('Outer Cleanup ' + counter)
+    }
+	}, [counter]);
+  
+	return <Middle setCounter={setCounter} />;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Outer />)
+`,
+
+		correctIndex: 1,
+		sources: [textSources.useEffect],
+		options: [
+			'Logs "Outer 0", "Middle", "Inner", "Outer 10"',
+			'Logs "Inner", "Middle", "Outer 0", "Outer Cleanup 0", "Outer 10"',
+			'Logs "Inner", "Middle", "Outer 0", "Outer Cleanup 0", "Outer 5", "Outer Cleanup 5", "Outer 10"',
+			'Logs "Inner", "Middle", "Outer 0", "Middle Cleanup", "Outer Cleanup 0", "Outer 10"',
+			'Logs "Inner", "Middle", "Outer 0", "Inner Cleanup", "Middle Cleanup", "Outer Cleanup 0", "Outer 10"',
+			'Logs "Outer 0", "Outer Cleanup 0", "Middle", "Inner",  "Outer 10"',
+			'Logs "Inner", "Middle", "Outer 0", "Outer Cleanup 10", "Outer 10"',
+		],
 	}
 ];
 
