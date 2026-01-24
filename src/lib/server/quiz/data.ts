@@ -5,6 +5,7 @@ import jsScope from './jsScope.ts';
 import jsThis from './jsThis.ts';
 import jsExpressions from './jsExpressions.ts';
 import type { TextSource, VideoSource } from './sources.ts';
+import react from './react.ts';
 
 const questionsObject: { [key: string]: QuestionFull[] } = {
 	jsAsync: jsAsync,
@@ -12,6 +13,7 @@ const questionsObject: { [key: string]: QuestionFull[] } = {
 	jsThis: jsThis,
 	jsScope: jsScope,
 	jsExpressions: jsExpressions,
+	react: react,
 };
 
 export function getQuestions(topic: string) {
@@ -42,6 +44,7 @@ export function getMixedJsQuestions(questionsPerCategory:number) {
 		...getRandom(jsScope, perCategory),
 		...getRandom(jsThis, perCategory),
 		...getRandom(jsExpressions, perCategory),
+		...getRandom(react, perCategory),
 	];
 
 	return selected.sort(() => 0.5 - Math.random());

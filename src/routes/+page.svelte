@@ -3,6 +3,7 @@
 	import TopicLi from '$lib/components/TopicLi.svelte';
 	import { topics } from './topics';
 	import jsIcon from '$lib/assets/jsIcon.png'
+	import reactSvg from './react.svg'
 </script>
 <div class="links-container">
 	<h2 class="links-title">Test your JS knowledge</h2>
@@ -14,6 +15,7 @@
 		<TopicLi topic={topics.jsThis} link={'/jsThis'} icon="🫵" ></TopicLi>
 		<TopicLi topic={topics.jsScope} link={'/jsScope'} icon="🔍" ></TopicLi>
 		<TopicLi topic={topics.jsExpressions} link={'/jsExpressions'} icon="🧮" ></TopicLi>
+		<TopicLi topic={topics.react} link={'/react'} iconSrc={reactSvg} ></TopicLi>
 	</ul>
 </div>
 

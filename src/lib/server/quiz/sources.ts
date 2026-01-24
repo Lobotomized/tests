@@ -314,5 +314,16 @@ the __proto__ property because it's an accessor on Object.prototype, but they ge
 except for null and undefined which have no prototype no __proto__ property
 		`,
 		title: 'What has "__proto__" property?'
+	},
+	useEffect: {
+		text: `
+			useEffect is a hook that is used to perform side effects in a functional component.
+			It is called after the component is mounted and every time the component is updated.
+			It is called before the component is unmounted. The order of execution is:
+			- from most nested component to the least nested component
+			- from top to bottom in the tree
+			- useLayoutEffect is called before any useEffects
+		`,
+		title: 'useEffect'
 	}
 };
