@@ -258,6 +258,68 @@ ReactDOM.createRoot(document.getElementById('root')).render(<Outer />)
 			'Logs "Outer 0", "Outer Cleanup 0", "Middle", "Inner",  "Outer 10"',
 			'Logs "Inner", "Middle", "Outer 0", "Outer Cleanup 10", "Outer 10"',
 		],
+	},
+	{
+		id: 6,
+		prompt: 'What does the following code log?',
+		topic: 'react',
+		code: `import React, { useState, useEffect, useLayoutEffect } from 'react'
+import ReactDOM from 'react-dom/client'
+
+function Inner() {
+	console.log('Inner');
+
+	useEffect(() => {
+		console.log('Inner Effect');
+	}, []);
+  
+	useLayoutEffect(() => {
+		console.log('Inner Layout Effect');
+	}, []);
+
+	return null;
+}
+
+function Middle() {
+  console.log('Middle');
+
+	useEffect(() => {
+		console.log('Middle Effect');
+	}, []);
+  
+	useLayoutEffect(() => {
+		console.log('Middle Layout Effect');
+	}, []);
+	return <Inner />;
+}
+
+function Outer() {
+	console.log('Outer');
+ 
+	useEffect(() => {
+		console.log('Outer Effect');
+	}, []);
+  
+	useLayoutEffect(() => {
+		console.log('Outer Layout Effect');
+	}, []);
+
+	return <Middle />;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Outer />)
+`,
+
+		correctIndex: 4,
+		sources: [textSources.useEffect],
+		options: [
+			'Logs "Inner", "Middle", "Outer", "Inner Layout Effect", "Middle Layout Effect", "Outer Layout Effect", "Inner Effect", "Middle Effect", "Outer Effect"',
+			'Logs "Inner", "Middle", "Outer", "Inner Effect", "Middle Effect", "Outer Effect", "Inner Layout Effect", "Middle Layout Effect", "Outer Layout Effect"',
+			'Logs "Inner", "Middle", "Outer", "Outer Layout Effect", "Middle Layout Effect", "Inner Layout Effect", "Outer Effect", "Middle Effect", "Inner Effect"',
+			'Logs "Outer", "Middle", "Inner", "Outer Layout Effect", "Middle Layout Effect", "Inner Layout Effect", "Inner Effect", "Middle Effect", "Outer Effect"',
+			'Logs "Outer", "Middle", "Inner", "Inner Layout Effect", "Middle Layout Effect", "Outer Layout Effect", "Inner Effect", "Middle Effect", "Outer Effect"',
+			'Logs "Outer", "Middle", "Inner", "Outer Layout Effect", "Middle Layout Effect", "Inner Layout Effect", "Outer Effect", "Middle Effect", "Inner Effect"',
+		],
 	}
 ];
 
