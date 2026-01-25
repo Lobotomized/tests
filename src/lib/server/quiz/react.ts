@@ -452,6 +452,65 @@ ReactDOM.createRoot(document.getElementById('root')).render(<Component />)
 			'"Memo 0", "Effect 2", "Memo 1", "Memo 2", "Effect 1"',
 			'"Memo 0", "Effect 1", "Memo 2", "Effect 2", "Memo 1"',
 		],
+	},
+	{
+		id: 10,
+		prompt: 'What does the following code log?',
+		topic: 'react',
+		code: `import React, { useState, useEffect, useLayoutEffect, useMemo } from 'react';
+import ReactDOM from 'react-dom';
+
+function Inner() {
+  	useEffect(() => {
+      console.log('Inner Effect')
+  	}, []);
+
+  	return null;
+}
+
+function Middle() {
+  	useEffect(() => {
+  		  console.log('Middle Effect');
+  	}, []);
+
+    useMemo(() => {
+      console.log('Middle Memo')
+    })
+
+	  return <Inner />;
+}
+
+function Outer() {
+
+  	useEffect(() => {
+  		  console.log('Outer Effect');
+  	}, []);
+
+    useLayoutEffect(() => {
+      console.log('Outer Layout')
+    }, [])
+
+    useMemo(() => {
+      console.log('Outer Memo')
+    }, [])
+
+  	return <Middle />;
+}
+
+ReactDOM.render(<Outer />, document.getElementById('root'));
+`,
+
+		correctIndex: 0,
+		sources: [textSources.useEffect],
+		options: [
+			'"Outer Memo", "Middle Memo", "Outer Layout", "Inner Effect", "Middle Effect", "Outer Effect"', // true answer
+			'"Middle Memo", "Outer Memo", "Outer Layout", "Inner Effect", "Middle Effect", "Outer Effect"',
+			'"Outer Memo", "Middle Memo", "Outer Layout", "Outer Effect", "Middle Effect", "Inner Effect"',
+			'"Outer Memo", "Middle Memo", "Outer Effect", "Middle Effect", "Inner Effect", "Outer Layout"',
+			'"Outer Layout", "Outer Memo", "Middle Memo", "Inner Effect", "Middle Effect", "Outer Effect"',
+			'"Outer Layout", "Middle Memo", "Outer Memo", "Inner Effect", "Middle Effect", "Outer Effect"',
+
+		],
 	}
 ];
 
