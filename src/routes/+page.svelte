@@ -15,7 +15,7 @@
 		<TopicLi topic={topics.jsThis} link={'/jsThis'} icon="🫵" ></TopicLi>
 		<TopicLi topic={topics.jsScope} link={'/jsScope'} icon="🔍" ></TopicLi>
 		<TopicLi topic={topics.jsExpressions} link={'/jsExpressions'} icon="🧮" ></TopicLi>
-		<TopicLi topic={topics.react} link={'/react'} iconSrc={reactSvg} ></TopicLi>
+		<TopicLi topic={topics.react} link={'/react'} iconSrc={reactSvg} midQuestions={7} fullQuestions={10} ></TopicLi>
 	</ul>
 </div>
 
