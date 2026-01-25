@@ -110,16 +110,16 @@ import ReactDOM from 'react-dom/client'
 function Inner({setCounter}) {
 	useEffect(() => {
 		console.log('Inner');
-    setCounter(1);
+    	setCounter(1);
 	}, []);
 
 	return null;
 }
 
 function Middle({ setCounter }) {
-  useLayoutEffect(() => {
-    console.log('Middle 2');
-  }, [])
+	useLayoutEffect(() => {
+		console.log('Middle 2');
+	}, [])
 	return <Inner setCounter={setCounter} />;
 }
 function Outer() {
@@ -128,13 +128,13 @@ function Outer() {
 		console.log('Outer ' + counter);
 	}, [counter]);
 
-  useEffect(() => {
-    console.log('Outer 2')
-  }, [])
+	useEffect(() => {
+		console.log('Outer 2')
+	}, [])
 
-  useLayoutEffect(() => {
-    console.log('Outer 3');
-  }, [])
+	useLayoutEffect(() => {
+		console.log('Outer 3');
+	}, [])
   
 	return <Middle setCounter={setCounter} />;
 }
@@ -164,17 +164,17 @@ import ReactDOM from 'react-dom/client'
 function Inner({ setCounter }) {
 	useEffect(() => {
 		console.log('Inner');
-    setCounter(5);
+    	setCounter(5);
 	}, []);
 
 	return null;
 }
 
 function Middle({ setCounter }) {
-  useEffect(() => {
-    console.log('Middle');
-    setCounter(10);
-  }, [])
+	useEffect(() => {
+		console.log('Middle');
+		setCounter(10);
+	}, [])
 	return <Inner setCounter={setCounter} />;
 }
 
@@ -211,10 +211,10 @@ import ReactDOM from 'react-dom/client'
 function Inner({ setCounter }) {
 	useEffect(() => {
 		console.log('Inner');
-    setCounter(5);
-    return () => {
-      console.log('Inner Cleanup')
-    }
+		setCounter(5);
+		return () => {
+			console.log('Inner Cleanup')
+		}
 	}, []);
 
 	return null;
@@ -223,7 +223,7 @@ function Inner({ setCounter }) {
 function Middle({ setCounter }) {
   useEffect(() => {
     console.log('Middle');
-    setCounter(10);
+    	setCounter(10);
     return () => {
       console.log('Middle Cleanup')
     }
@@ -236,9 +236,9 @@ function Outer() {
 	useEffect(() => {
 		console.log('Outer ' + counter);
 
-    return () => {
-      console.log('Outer Cleanup ' + counter)
-    }
+		return () => {
+			console.log('Outer Cleanup ' + counter)
+		}
 	}, [counter]);
   
 	return <Middle setCounter={setCounter} />;
@@ -248,7 +248,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(<Outer />)
 `,
 
 		correctIndex: 1,
-		sources: [textSources.useEffect],
+		sources: [textSources.useEffect, textSources.useState],
 		options: [
 			'Logs "Outer 0", "Middle", "Inner", "Outer 10"',
 			'Logs "Inner", "Middle", "Outer 0", "Outer Cleanup 0", "Outer 10"',
@@ -281,7 +281,7 @@ function Inner() {
 }
 
 function Middle() {
-  console.log('Middle');
+  	console.log('Middle');
 
 	useEffect(() => {
 		console.log('Middle Effect');
@@ -311,7 +311,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(<Outer />)
 `,
 
 		correctIndex: 4,
-		sources: [textSources.useEffect],
+		sources: [textSources.useEffect, textSources.useLayoutEffect],
 		options: [
 			'Logs "Inner", "Middle", "Outer", "Inner Layout Effect", "Middle Layout Effect", "Outer Layout Effect", "Inner Effect", "Middle Effect", "Outer Effect"',
 			'Logs "Inner", "Middle", "Outer", "Inner Effect", "Middle Effect", "Outer Effect", "Inner Layout Effect", "Middle Layout Effect", "Outer Layout Effect"',
@@ -319,6 +319,54 @@ ReactDOM.createRoot(document.getElementById('root')).render(<Outer />)
 			'Logs "Outer", "Middle", "Inner", "Outer Layout Effect", "Middle Layout Effect", "Inner Layout Effect", "Inner Effect", "Middle Effect", "Outer Effect"',
 			'Logs "Outer", "Middle", "Inner", "Inner Layout Effect", "Middle Layout Effect", "Outer Layout Effect", "Inner Effect", "Middle Effect", "Outer Effect"',
 			'Logs "Outer", "Middle", "Inner", "Outer Layout Effect", "Middle Layout Effect", "Inner Layout Effect", "Outer Effect", "Middle Effect", "Inner Effect"',
+		],
+	},
+	{
+		id: 7,
+		prompt: 'What does the following code log?',
+		topic: 'react',
+		code: `import React, { useState, useEffect, useLayoutEffect } from 'react'
+import ReactDOM from 'react-dom/client'
+
+function Middle({ setCounter }) {
+
+	useEffect(() => {
+    	setCounter(2);
+	}, []);
+  
+	return null;
+}
+
+function Outer() {
+  const [counter, setCounter] = useState(0)
+ 
+	useEffect(() => {
+		console.log('First Effect ' + counter);
+
+    	return () => console.log('Cleanup First')
+	}, [counter]);
+
+	useEffect(() => {
+		console.log('Second Effect ' + counter);
+
+    	return () => console.log('Cleanup Second')
+	}, [counter]);
+
+	return <Middle setCounter={setCounter} />;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Outer />)i
+`,
+
+		correctIndex: 2,
+		sources: [textSources.useEffect, textSources.useLayoutEffect],
+		options: [
+			'Logs "Second Effect 0", "First Effect 0", "Cleanup First", "Cleanup Second", "Second Effect 2", "First Effect 2"',
+			'Logs "Second Effect 2", "First Effect 2", "Cleanup First", "Cleanup Second"',
+			'Logs "First Effect 0", "Second Effect 0", "Cleanup First", "Cleanup Second", "First Effect 2", "Second Effect 2"',
+			'Logs "Second Effect 0", "First Effect 0", "Second Effect 2", "First Effect 2", "Cleanup First", "Cleanup Second"',
+			'Logs "First Effect 0", "Second Effect 0", "Cleanup Second", "Cleanup First", "First Effect 2", "Second Effect 2"',
+			'Logs "Cleanup First", "Cleanup Second", "Second Effect 2", "First Effect 2"',
 		],
 	}
 ];

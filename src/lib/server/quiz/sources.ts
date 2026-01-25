@@ -317,13 +317,25 @@ except for null and undefined which have no prototype no __proto__ property
 	},
 	useEffect: {
 		text: `
-			useEffect is a hook that is used to perform side effects in a functional component.
-			It is called after the component is mounted and every time the component is updated.
-			It is called before the component is unmounted. The order of execution is:
-			- from most nested component to the least nested component
-			- from top to bottom in the tree
-			- useLayoutEffect is called before any useEffects
+			useEffect is a hook that performs side effects in a functional component.
+			It runs after the component renders and the browser paints.
+			It re-runs when any value in its dependency array changes.
+			The cleanup function (if returned) runs before the effect re-runs and before the component unmounts.
+			The order of execution is:
+			- useLayoutEffect runs before useEffect (synchronously after DOM mutations, before paint)
+			- Effects run from children to parents (most nested component first)
 		`,
 		title: 'useEffect'
+	},
+	useState: {
+		text: `
+			useState is a hook that manages state in a functional component.
+			It returns an array with the current state value and a setter function.
+			The initial value is set on first render (can be a value or a function for lazy initialization).
+			State updates are asynchronous and batched - the component re-renders with the new state value. 
+			If during the same render, multiple state updates are triggered, they are batched and the component re-renders only once with the latest state value.
+			When updating based on previous state, use the functional form: setState(prev => newValue).
+		`,
+		title: 'useState'
 	}
 };
