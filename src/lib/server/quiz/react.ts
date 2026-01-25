@@ -368,6 +368,56 @@ ReactDOM.createRoot(document.getElementById('root')).render(<Outer />)i
 			'Logs "First Effect 0", "Second Effect 0", "Cleanup Second", "Cleanup First", "First Effect 2", "Second Effect 2"',
 			'Logs "Cleanup First", "Cleanup Second", "Second Effect 2", "First Effect 2"',
 		],
+	},
+	{
+		id: 8,
+		prompt: 'What does the following code log?',
+		topic: 'react',
+		code: `import React, { useState, useEffect, useLayoutEffect } from 'react'
+import ReactDOM from 'react-dom/client'
+
+function Component() {
+  const [counter, setCounter] = useState(0)
+  const [counter2, setCounter2] = useState(0)
+  const [counter3, setCounter3] = useState(0)
+ 
+	useEffect(() => {
+		console.log('Effect 1');
+
+    	return () => console.log('Cleanup 1')
+	}, [counter3]);
+
+	useEffect(() => {
+		console.log('Effect 2');
+		setCounter(10);
+		setCounter3(10)
+
+		return () => console.log('Cleanup 2')
+	}, []);
+
+	useEffect(() => {
+		console.log('Effect 3');
+		setCounter3(20)
+
+		return () => console.log('Cleanup 3')
+	}, [counter]);
+
+	return <Middle setCounter={setCounter} />;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Component />)
+`,
+
+		correctIndex: 0,
+		sources: [textSources.useEffect],
+		options: [
+			'Logs "Effect 1", "Effect 2", "Effect 3", "Cleanup 1", "Cleanup 3", "Effect 1", "Effect 3"',
+			'Logs "Effect 1", "Effect 2", "Effect 3", "Cleanup 1", "Cleanup 3", "Effect 1", "Effect 3"',
+			'Logs "Effect 3", "Effect 2", "Effect 1", "Cleanup 1", "Cleanup 3", "Effect 3", "Effect 1"',
+			'Logs "Effect 1", "Effect 2", "Effect 3", "Cleanup 3", "Cleanup 1", "Effect 3", "Effect 1"',
+			'Logs "Effect 3", "Effect 2", "Effect 1", "Cleanup 3", "Cleanup 1", "Effect 3", "EFfect 1',
+			'Logs "Effect 1", "Effect 2", "Effect 3", "Cleanup 3", "Cleanup 1", "Effect 1", "Effect 3"',
+		],
 	}
 ];
 
