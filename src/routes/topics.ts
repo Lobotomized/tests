@@ -5,5 +5,5 @@ export const topics: Record<string, string> = {
     jsScope: 'Javascript Scope, Closures and Hoisting',
     jsExpressions: 'Javascript Expressions',
     jsMixed: 'Random questions from all of JS',
-    react: 'React'
+    react: 'React Order of Execution'
 }
