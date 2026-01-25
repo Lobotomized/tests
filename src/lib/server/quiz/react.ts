@@ -409,6 +409,49 @@ ReactDOM.createRoot(document.getElementById('root')).render(<Component />)
 			'Logs "Rerender", "Memo", "Effect", "Rerender", "Memo"',
 			'Logs "Rerender", "Memo", "Effect", "Rerender", "Memo", "Effect"',
 		],
+	},
+	{
+		id: 9,
+		prompt: 'What does the following code log?',
+		topic: 'react',
+		code: `import React, { useState, useEffect, useLayoutEffect, useMemo } from 'react';
+import ReactDOM from 'react-dom/client';
+
+function Component() {
+  	const [counter, setCounter] = useState(0);
+
+	useEffect(() => {
+		console.log('Effect 1');
+    	setCounter(c => c+=1);
+	}, []);
+
+	const memoized = useMemo(() => {
+		console.log("Memo " + counter);
+		return 'Counter is + counter';
+	}, [counter])
+
+	useLayoutEffect(() => {
+		console.log('Effect 2');
+    	setCounter(c => c+=2);
+	}, []);
+
+ 
+	return <div></div>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Component />)
+`,
+
+		correctIndex: 4,
+		sources: [textSources.useEffect],
+		options: [
+			'"Memo 0", "Effect 1", "Effect 2", "Memo 1", "Memo 2"',
+			'"Memo 0", "Effect 2", "Effect 1", "Memo 1", "Memo 2"',
+			'"Memo 0", "Effect 2", "Effect 1", "Memo 2"',
+			'"Memo 0", "Effect 2", "Memo 1", "Effect 1", "Memo 2"',
+			'"Memo 0", "Effect 2", "Memo 1", "Memo 2", "Effect 1"',
+			'"Memo 0", "Effect 1", "Memo 2", "Effect 2", "Memo 1"',
+		],
 	}
 ];
 
