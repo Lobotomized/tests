@@ -534,7 +534,7 @@ Promise.race([
 
 	{
 		id: 19,
-		prompt: 'What does the following code log assuming you are using ESM?',
+		prompt: 'What does the following code log assuming you are using CommonJS?',
 		topic: 'js',
 		code: `queueMicrotask(() => {
   console.log(1)
