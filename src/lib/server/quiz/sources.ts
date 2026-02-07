@@ -36,6 +36,10 @@ export const videoSources: VideoSources = {
 	constructorFunctionInheritance: {
 		url: 'https://www.youtube.com/watch?v=kDGMQyd0DVU',
 		title: 'Constructor function inheritance'
+	},
+	specificAsyncQuestion: {
+		url: 'https://www.youtube.com/watch?v=m7D6cqzNfs4',
+		title: 'Specific async question'
 	}
 };
 

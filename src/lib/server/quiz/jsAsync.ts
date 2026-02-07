@@ -167,7 +167,7 @@ queueMicrotask(() => {
 			'1, 2, 3, 4, 5, 6, 7, 8'
 		],
 		correctIndex: 4,
-		sources: [videoSources.promises]
+		sources: [ videoSources.specificAsyncQuestion, videoSources.promises]
 	},
 	{
 		id: 6,
