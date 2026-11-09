@@ -1,21 +1,23 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import TopicLi from '$lib/components/TopicLi.svelte';
-	import { topics } from './topics';
-	import jsIcon from '$lib/assets/jsIcon.png'
-	import reactSvg from './react.svg'
+	import jsIcon from '$lib/assets/jsIcon.png';
+	import reactSvg from './react.svg';
 </script>
 <div class="links-container">
-	<h2 class="links-title">Test your JS knowledge</h2>
-	<p class="links-description">Test your knowledge and get exactly the materials you need to fill your gaps</p>
+	<h2 class="links-title">Test your knowledge</h2>
 	<ul class="links-list">
-		<TopicLi topic={topics.jsMixed} link={'/jsMixed'} fullQuestions={25} iconSrc={jsIcon} ></TopicLi>
-		<TopicLi topic={topics.jsAsync} link={'/jsAsync'} icon="⏱️" ></TopicLi>
-		<TopicLi topic={topics.jsInheritance} link={'/jsInheritance'} icon="👨‍👩‍👧‍👦" ></TopicLi>
-		<TopicLi topic={topics.jsThis} link={'/jsThis'} icon="🫵" ></TopicLi>
-		<TopicLi topic={topics.jsScope} link={'/jsScope'} icon="🔍" ></TopicLi>
-		<TopicLi topic={topics.jsExpressions} link={'/jsExpressions'} icon="🧮" ></TopicLi>
-		<TopicLi topic={topics.react} link={'/react'} iconSrc={reactSvg} midQuestions={7} fullQuestions={10} ></TopicLi>
+		<li class="link-item">
+			<a data-sveltekit-preload-data="tap" class="link-card" href={resolve('/js')}>
+				<img class="link-icon" src={jsIcon} alt="JS" style="width: 2rem; height: 2rem;" />
+				<span class="link-text">JS</span>
+			</a>
+		</li>
+		<li class="link-item">
+			<a data-sveltekit-preload-data="tap" class="link-card" href={resolve('/react')}>
+				<img class="link-icon" src={reactSvg} alt="React" style="width: 2rem; height: 2rem;" />
+				<span class="link-text">React</span>
+			</a>
+		</li>
 	</ul>
 </div>
 
@@ -37,15 +39,8 @@
 		text-align: center;
 		color: #2d3748;
 		font-size: 1.75rem;
-		margin-bottom: 0.5rem;
-		font-weight: 600;
-	}
-
-	.links-description {
-		text-align: center;
-		color: #4a5568;
-		font-size: 1rem;
 		margin-bottom: 1.5rem;
+		font-weight: 600;
 	}
 
 	.links-list {
