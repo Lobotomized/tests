@@ -9,7 +9,7 @@
 		<li class="link-item">
 			<a data-sveltekit-preload-data="tap" class="link-card" href={resolve('/js')}>
 				<img class="link-icon" src={jsIcon} alt="JS" style="width: 2rem; height: 2rem;" />
-				<span class="link-text">JS</span>
+				<span class="link-text">Javascript</span>
 			</a>
 		</li>
 		<li class="link-item">
