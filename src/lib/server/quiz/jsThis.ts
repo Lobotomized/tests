@@ -235,13 +235,12 @@ console.log(getValue());
 
 console.log(getValue.call(obj)); 
 console.log(getValue.apply(obj));`,
-        correctIndex: 3,
+        correctIndex: 1,
         sources: [textSources.thisHierarchy],
         options: [
             'Logs 42 42 42 42',
             'Logs 42 undefined 42 42',
             'Logs 42 42 undefined undefined',
-            'Logs 42 undefined 42 42',
             'Logs undefined 42 42 42',
             'Throws an error',
             'Logs undefined undefined undefined undefined'
